@@ -101,7 +101,8 @@ class MainWindow(QMainWindow):
 
         paste_action = QAction(QIcon(os.path.join('images', 'clipboard-paste-document-text.png')), "Paste", self)
         paste_action.setStatusTip("Paste from clipboard")
-        paste_action.triggered.connect(self.editor.paste)
+        paste_action.triggered.connect(self.on_pushButton_clicked)
+        self.dialogs = list()
         ajuda_toolbar.addAction(paste_action)
         edit_menu.addAction(paste_action)
 
@@ -146,6 +147,11 @@ class MainWindow(QMainWindow):
 
         self.update_title()
         self.show()
+
+    def on_pushButton_clicked(self):
+        dialog = Second(self)
+        self.dialogs.append(dialog)
+        dialog.show()
 
     def dialog_critical(self, s):
         dlg = QMessageBox(self)
