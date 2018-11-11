@@ -8,6 +8,10 @@ from PyQt5.QtPrintSupport import *
 import os
 import sys
 
+#fonte: https://stackoverflow.com/questions/36768033/pyqt-how-to-open-new-window
+class Second(QMainWindow):
+    def __init__(self, parent=None):
+        super(Second, self).__init__(parent)
 
 class MainWindow(QMainWindow):
 
@@ -65,9 +69,9 @@ class MainWindow(QMainWindow):
         file_menu.addAction(print_action)
         file_toolbar.addAction(print_action)
 
-        edit_toolbar = QToolBar("Editar")
-        edit_toolbar.setIconSize(QSize(16, 16))
-        self.addToolBar(edit_toolbar)
+        ajuda_toolbar = QToolBar("Editar")
+        ajuda_toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(ajuda_toolbar)
         edit_menu = self.menuBar().addMenu("&Editar")
 
         undo_action = QAction(QIcon(os.path.join('images', 'arrow-curve-180-left.png')), "Undo", self)
@@ -78,7 +82,7 @@ class MainWindow(QMainWindow):
         redo_action = QAction(QIcon(os.path.join('images', 'arrow-curve.png')), "Redo", self)
         redo_action.setStatusTip("Redo last change")
         redo_action.triggered.connect(self.editor.redo)
-        edit_toolbar.addAction(redo_action)
+        ajuda_toolbar.addAction(redo_action)
         edit_menu.addAction(redo_action)
 
         edit_menu.addSeparator()
@@ -86,19 +90,19 @@ class MainWindow(QMainWindow):
         cut_action = QAction(QIcon(os.path.join('images', 'scissors.png')), "Cut", self)
         cut_action.setStatusTip("Cut selected text")
         cut_action.triggered.connect(self.editor.cut)
-        edit_toolbar.addAction(cut_action)
+        ajuda_toolbar.addAction(cut_action)
         edit_menu.addAction(cut_action)
 
         copy_action = QAction(QIcon(os.path.join('images', 'document-copy.png')), "Copy", self)
         copy_action.setStatusTip("Copy selected text")
         copy_action.triggered.connect(self.editor.copy)
-        edit_toolbar.addAction(copy_action)
+        ajuda_toolbar.addAction(copy_action)
         edit_menu.addAction(copy_action)
 
         paste_action = QAction(QIcon(os.path.join('images', 'clipboard-paste-document-text.png')), "Paste", self)
         paste_action.setStatusTip("Paste from clipboard")
         paste_action.triggered.connect(self.editor.paste)
-        edit_toolbar.addAction(paste_action)
+        ajuda_toolbar.addAction(paste_action)
         edit_menu.addAction(paste_action)
 
         select_action = QAction(QIcon(os.path.join('images', 'selection-input.png')), "Select all", self)
@@ -115,30 +119,30 @@ class MainWindow(QMainWindow):
         wrap_action.triggered.connect(self.edit_toggle_wrap)
         edit_menu.addAction(wrap_action)
 
-        edit_toolbar = QToolBar("Léxico")
-        edit_toolbar.setIconSize(QSize(16, 16))
-        self.addToolBar(edit_toolbar)
-        edit_menu = self.menuBar().addMenu("&Léxico")
+        lexico_toolbar = QToolBar("Léxico")
+        lexico_toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(lexico_toolbar)
+        lexico_menu = self.menuBar().addMenu("&Léxico")
 
-        edit_toolbar = QToolBar("Sintático")
-        edit_toolbar.setIconSize(QSize(16, 16))
-        self.addToolBar(edit_toolbar)
-        edit_menu = self.menuBar().addMenu("&Sintático")
+        sintatico_toolbar = QToolBar("Sintático")
+        sintatico_toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(sintatico_toolbar)
+        sintatico_menu = self.menuBar().addMenu("&Sintático")
 
-        edit_toolbar = QToolBar("Semântico")
-        edit_toolbar.setIconSize(QSize(16, 16))
-        self.addToolBar(edit_toolbar)
-        edit_menu = self.menuBar().addMenu("&Semântico")
+        semantico_toolbar = QToolBar("Semântico")
+        semantico_toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(semantico_toolbar)
+        semantico_menu = self.menuBar().addMenu("&Semântico")
 
-        edit_toolbar = QToolBar("Código")
-        edit_toolbar.setIconSize(QSize(16, 16))
-        self.addToolBar(edit_toolbar)
-        edit_menu = self.menuBar().addMenu("&Código")
+        codigo_toolbar = QToolBar("Código")
+        codigo_toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(codigo_toolbar)
+        codigo_menu = self.menuBar().addMenu("&Código")
 
-        edit_toolbar = QToolBar("Ajuda")
-        edit_toolbar.setIconSize(QSize(16, 16))
-        self.addToolBar(edit_toolbar)
-        edit_menu = self.menuBar().addMenu("&Ajuda")
+        ajuda_toolbar = QToolBar("Ajuda")
+        ajuda_toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(ajuda_toolbar)
+        ajuda_menu = self.menuBar().addMenu("&Ajuda")
 
         self.update_title()
         self.show()
