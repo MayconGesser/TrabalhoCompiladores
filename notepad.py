@@ -21,6 +21,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
+        self.setFixedSize(500,500)
 
         layout = QVBoxLayout()
         self.editor = QPlainTextEdit()  # Could also use a QTextEdit and set self.editor.setAcceptRichText(False)
