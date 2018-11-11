@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+#Crédito total a Martin Fitzpatrick pelo código original 
+#Full credit for the original code goes to Martin Fitzpatrick
+#Fonte original/Original source: https://github.com/mfitzp/15-minute-apps (notepad)
+
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
