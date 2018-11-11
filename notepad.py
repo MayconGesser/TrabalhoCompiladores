@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -34,10 +36,10 @@ class MainWindow(QMainWindow):
         self.status = QStatusBar()
         self.setStatusBar(self.status)
 
-        file_toolbar = QToolBar("File")
+        file_toolbar = QToolBar("Arquivo")
         file_toolbar.setIconSize(QSize(14, 14))
         self.addToolBar(file_toolbar)
-        file_menu = self.menuBar().addMenu("&File")
+        file_menu = self.menuBar().addMenu("&Arquivo")
 
         open_file_action = QAction(QIcon(os.path.join('images', 'blue-folder-open-document.png')), "Open file...", self)
         open_file_action.setStatusTip("Open file")
@@ -63,10 +65,10 @@ class MainWindow(QMainWindow):
         file_menu.addAction(print_action)
         file_toolbar.addAction(print_action)
 
-        edit_toolbar = QToolBar("Edit")
+        edit_toolbar = QToolBar("Editar")
         edit_toolbar.setIconSize(QSize(16, 16))
         self.addToolBar(edit_toolbar)
-        edit_menu = self.menuBar().addMenu("&Edit")
+        edit_menu = self.menuBar().addMenu("&Editar")
 
         undo_action = QAction(QIcon(os.path.join('images', 'arrow-curve-180-left.png')), "Undo", self)
         undo_action.setStatusTip("Undo last change")
@@ -112,6 +114,31 @@ class MainWindow(QMainWindow):
         wrap_action.setChecked(True)
         wrap_action.triggered.connect(self.edit_toggle_wrap)
         edit_menu.addAction(wrap_action)
+
+        edit_toolbar = QToolBar("Léxico")
+        edit_toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(edit_toolbar)
+        edit_menu = self.menuBar().addMenu("&Léxico")
+
+        edit_toolbar = QToolBar("Sintático")
+        edit_toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(edit_toolbar)
+        edit_menu = self.menuBar().addMenu("&Sintático")
+
+        edit_toolbar = QToolBar("Semântico")
+        edit_toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(edit_toolbar)
+        edit_menu = self.menuBar().addMenu("&Semântico")
+
+        edit_toolbar = QToolBar("Código")
+        edit_toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(edit_toolbar)
+        edit_menu = self.menuBar().addMenu("&Código")
+
+        edit_toolbar = QToolBar("Ajuda")
+        edit_toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(edit_toolbar)
+        edit_menu = self.menuBar().addMenu("&Ajuda")
 
         self.update_title()
         self.show()
