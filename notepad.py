@@ -45,26 +45,26 @@ class MainWindow(QMainWindow):
         self.addToolBar(file_toolbar)
         file_menu = self.menuBar().addMenu("&Arquivo")
 
-        open_file_action = QAction(QIcon(os.path.join('images', 'blue-folder-open-document.png')), "Open file...", self)
-        open_file_action.setStatusTip("Open file")
+        open_file_action = QAction(QIcon(os.path.join('images', 'blue-folder-open-document.png')), "Abrir arquivo...", self)
+        open_file_action.setStatusTip("Abrir arquivo")
         open_file_action.triggered.connect(self.file_open)
         file_menu.addAction(open_file_action)
         file_toolbar.addAction(open_file_action)
 
         save_file_action = QAction(QIcon(os.path.join('images', 'disk.png')), "Save", self)
-        save_file_action.setStatusTip("Save current page")
+        save_file_action.setStatusTip("Salvar estado atual")
         save_file_action.triggered.connect(self.file_save)
         file_menu.addAction(save_file_action)
         file_toolbar.addAction(save_file_action)
 
         saveas_file_action = QAction(QIcon(os.path.join('images', 'disk--pencil.png')), "Save As...", self)
-        saveas_file_action.setStatusTip("Save current page to specified file")
+        saveas_file_action.setStatusTip("Salvar estado atual para arquivo específico")
         saveas_file_action.triggered.connect(self.file_saveas)
         file_menu.addAction(saveas_file_action)
         file_toolbar.addAction(saveas_file_action)
 
         print_action = QAction(QIcon(os.path.join('images', 'printer.png')), "Print...", self)
-        print_action.setStatusTip("Print current page")
+        print_action.setStatusTip("Imprimir arquivo atual")
         print_action.triggered.connect(self.file_print)
         file_menu.addAction(print_action)
         file_toolbar.addAction(print_action)
@@ -75,12 +75,12 @@ class MainWindow(QMainWindow):
         edit_menu = self.menuBar().addMenu("&Editar")
 
         undo_action = QAction(QIcon(os.path.join('images', 'arrow-curve-180-left.png')), "Undo", self)
-        undo_action.setStatusTip("Undo last change")
+        undo_action.setStatusTip("Desfazer a última mudança")
         undo_action.triggered.connect(self.editor.undo)
         edit_menu.addAction(undo_action)
 
         redo_action = QAction(QIcon(os.path.join('images', 'arrow-curve.png')), "Redo", self)
-        redo_action.setStatusTip("Redo last change")
+        redo_action.setStatusTip("Refazer a última mudança")
         redo_action.triggered.connect(self.editor.redo)
         ajuda_toolbar.addAction(redo_action)
         edit_menu.addAction(redo_action)
@@ -88,33 +88,33 @@ class MainWindow(QMainWindow):
         edit_menu.addSeparator()
 
         cut_action = QAction(QIcon(os.path.join('images', 'scissors.png')), "Cut", self)
-        cut_action.setStatusTip("Cut selected text")
+        cut_action.setStatusTip("Cortar texto selecionado")
         cut_action.triggered.connect(self.editor.cut)
         ajuda_toolbar.addAction(cut_action)
         edit_menu.addAction(cut_action)
 
         copy_action = QAction(QIcon(os.path.join('images', 'document-copy.png')), "Copy", self)
-        copy_action.setStatusTip("Copy selected text")
+        copy_action.setStatusTip("Copiar texto selecionado")
         copy_action.triggered.connect(self.editor.copy)
         ajuda_toolbar.addAction(copy_action)
         edit_menu.addAction(copy_action)
 
         paste_action = QAction(QIcon(os.path.join('images', 'clipboard-paste-document-text.png')), "Paste", self)
-        paste_action.setStatusTip("Paste from clipboard")
+        paste_action.setStatusTip("Colar do clipboard")
         paste_action.triggered.connect(self.on_pushButton_clicked)
         self.dialogs = list()
         ajuda_toolbar.addAction(paste_action)
         edit_menu.addAction(paste_action)
 
         select_action = QAction(QIcon(os.path.join('images', 'selection-input.png')), "Select all", self)
-        select_action.setStatusTip("Select all text")
+        select_action.setStatusTip("Selecionar todo o texto")
         select_action.triggered.connect(self.editor.selectAll)
         edit_menu.addAction(select_action)
 
         edit_menu.addSeparator()
 
         wrap_action = QAction(QIcon(os.path.join('images', 'arrow-continue.png')), "Wrap text to window", self)
-        wrap_action.setStatusTip("Toggle wrap text to window")
+        wrap_action.setStatusTip("Ativar ancoragem de texto à janela")
         wrap_action.setCheckable(True)
         wrap_action.setChecked(True)
         wrap_action.triggered.connect(self.edit_toggle_wrap)
@@ -160,7 +160,7 @@ class MainWindow(QMainWindow):
         dlg.show()
 
     def file_open(self):
-        path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "Text documents (*.txt);All files (*.*)")
+        path, _ = QFileDialog.getOpenFileName(self, "Abrir arquivos", "", "Text documents (*.txt);All files (*.*)")
 
         try:
             with open(path, 'rU') as f:
@@ -188,7 +188,7 @@ class MainWindow(QMainWindow):
             self.dialog_critical(str(e))
 
     def file_saveas(self):
-        path, _ = QFileDialog.getSaveFileName(self, "Save file", "", "Text documents (*.txt);All files (*.*)")
+        path, _ = QFileDialog.getSaveFileName(self, "Salvar arquivo", "", "Text documents (*.txt);All files (*.*)")
         text = self.editor.toPlainText()
 
         if not path:
@@ -212,7 +212,7 @@ class MainWindow(QMainWindow):
             self.editor.print_(dlg.printer())
 
     def update_title(self):
-        self.setWindowTitle("%s - No2Pads" % (os.path.basename(self.path) if self.path else "Untitled"))
+        self.setWindowTitle("%s - No2Pads" % (os.path.basename(self.path) if self.path else "Sem Título"))
 
     def edit_toggle_wrap(self):
         self.editor.setLineWrapMode( 1 if self.editor.lineWrapMode() == 0 else 0 )
