@@ -35,10 +35,6 @@ import javax.swing.undo.UndoManager;
 @SuppressWarnings("serial")
 public class EditorGUI extends JFrame implements ActionListener {
 
-    public static void main(String[] args) {
-        new EditorGUI();
-    }
-
     //============================================
     // FIELDS
     //============================================
