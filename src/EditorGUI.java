@@ -42,10 +42,14 @@ public class EditorGUI extends JFrame implements ActionListener {
     // Menus
     private JMenu fileMenu;
     private JMenu editMenu;
+    private JMenu lexicoMenu;
+    private JMenu sintaticoMenu;
+    private JMenu semanticoMenu;
     private JMenuItem newFile, openFile, saveFile, saveAsFile, pageSetup, printFile, exit;
     private JMenuItem undoEdit, redoEdit, selectAll, copy, paste, cut;
-
-
+    private JMenuItem analisarLexico;
+    private JMenuItem analisarSintatica;
+    private JMenuItem analisarSemantica;
     // Window
     private JFrame editorWindow;
 
@@ -83,6 +87,9 @@ public class EditorGUI extends JFrame implements ActionListener {
         // Create Menus
         fileMenu();
         editMenu();
+        lexicoMenu();
+        sintaticoMenu();
+        semanticoMenu();
 
         // Create Text Area
         createTextArea();
@@ -128,6 +135,9 @@ public class EditorGUI extends JFrame implements ActionListener {
         setJMenuBar(menuBar);
         menuBar.add(fileMenu);
         menuBar.add(editMenu);
+        menuBar.add(lexicoMenu);
+        menuBar.add(sintaticoMenu);
+        menuBar.add(semanticoMenu);
 
         return menuBar;
     }
@@ -240,7 +250,49 @@ public class EditorGUI extends JFrame implements ActionListener {
         editMenu.add(paste);
         editMenu.add(cut);
     }
+    
+    private void lexicoMenu() {
+    	lexicoMenu = new JMenu("Léxico");
+        lexicoMenu.setPreferredSize(new Dimension(100, 20));
 
+        // Add file menu items
+        analisarLexico = new JMenuItem("Analisar lexicamente...");
+        analisarLexico.addActionListener(this);
+        analisarLexico.setPreferredSize(new Dimension(200, 20));
+        analisarLexico.setEnabled(true);
+
+        // Add items to menu
+        lexicoMenu.add(analisarLexico);
+    }
+    
+    private void sintaticoMenu() {
+    	sintaticoMenu = new JMenu("Sintático");
+        sintaticoMenu.setPreferredSize(new Dimension(100, 20));
+
+        // Add file menu items
+        analisarSintatica = new JMenuItem("Analisar Sintaxe...");
+        analisarSintatica.addActionListener(this);
+        analisarSintatica.setPreferredSize(new Dimension(150, 20));
+        analisarSintatica.setEnabled(true);
+
+        // Add items to menu
+        sintaticoMenu.add(analisarSintatica);
+    }
+    
+    private void semanticoMenu() {
+    	semanticoMenu = new JMenu("Semântico");
+        semanticoMenu.setPreferredSize(new Dimension(100, 20));
+
+        // Add file menu items
+        analisarSemantica = new JMenuItem("Analisar Semântica...");
+        analisarSemantica.addActionListener(this);
+        analisarSemantica.setPreferredSize(new Dimension(180, 20));
+        analisarSemantica.setEnabled(true);
+
+        // Add items to menu
+        semanticoMenu.add(analisarSemantica);
+    }
+    
     // Method for saving files - Removes duplication of code
     private void saveFile(File filename) {
         try {
