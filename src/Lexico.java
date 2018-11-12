@@ -7,7 +7,7 @@ public class Lexico implements Constants
 	private int currentPosition; 
 	private char currentChar;
 	private final char space = ' ';
-	private final HashMap<String,Integer> lexemesToIds = new HashMap();
+	private final HashMap<String,Integer> lexemesToIds = new HashMap<String, Integer>();
 	//inicializador de instância
 	{
 		int offsetToId = 2; 
