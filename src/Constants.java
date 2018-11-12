@@ -1,5 +1,13 @@
 public interface Constants extends ParserConstants
 {
+	
+	final String[] lexemes = {
+		"programa","id","inteiro","real","booleano","caracter",
+		"cadeia","metodo","ref","val","se","entao","senao","leia",
+		"escreva","retorne","ou","div","e","nao","falso","verdadeiro","enquanto","faca",
+		":","<","+","/","]","=",")","*",">",",","}","[","{",";",".","(","-","<=",">=",":=","<>"
+	};
+	
     int EPSILON  = 0;
     int DOLLAR   = 1;
 
