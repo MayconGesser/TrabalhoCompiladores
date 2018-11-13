@@ -1,0 +1,34 @@
+D: [1-9]
+Z: 0
+L: [a-zA-Z]
+INT : (D(D|Z))*
+REAL : (INT+(\.INT*)?|\.INT*)
+PR : \b(programa|var|caracter|cadeia|procedimento|inicio|fim|inteiro|booleano|funcao|se|entao|senao|leia|escreva|ou|e|nao|falso|verdadeiro|de|faca|real|vetor|enquanto)\b
+ASPASDUPLAS : \"
+id : (@(({D}|{L})+(@|_)?)*({L}|{D}))|{L}((@|_)?({D}|{L})+)*
+constI : {INT}(\E{INT})?
+constR : {REAL}(\e(\-|\+){D}({D}|{Z}))
+constL : (\'(.|{ASPASDUPLAS})(\n|\'))
+comment : #.?\n
+blockComment : "/*"([^"*"]*("*"*[^"*"/]+)?)*"*/"
+se1 : ";"
+se2 : ","
+se3 : "."
+se4 : ">"
+se5 : "<"
+se6 : "="
+se7 : "("
+se8 : ")"
+se9 : "["
+se10 : "]"
+se11 : "+"
+se12 : "-"
+se13 : "*"
+se14 : "/"
+se15 : ":"
+se16 : "-"
+se17 : ":="
+se18 : ".."
+se19 : "<>"
+se20 : "<="
+se21 : ">="
