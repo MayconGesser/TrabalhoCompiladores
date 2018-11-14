@@ -414,6 +414,22 @@ public class EditorGUI extends JFrame implements ActionListener {
         } else if(event.getSource() == cut) {
             textArea.cut();
         }
+        //Analisadores
+        else if(event.getSource() == analisarLexico) {
+        	String textoFonte = textArea.getText();
+        	char[] simbolos = textoFonte.toCharArray();
+        	for(int i = 0; i<simbolos.length; i++) {
+        		char caractere = simbolos[i];
+        		analisadorLexico.setInput(String.valueOf(caractere));
+        		analisadorLexico.setPosition(i);
+        		try {
+        			analisadorLexico.nextToken();
+        		}catch(LexicalError lexicalError) {
+        			System.out.println(lexicalError.getMessage());
+        		}
+        	}
+        	System.out.println("deu boa...");
+        }        
     }
 
     //============================================
