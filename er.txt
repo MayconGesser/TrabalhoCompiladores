@@ -1,16 +1,15 @@
 D: [1-9]
 Z: 0
 L: [a-zA-Z]
+MINUSCULAS : [a-z]
 INT : (D(D|Z))*
-REAL : (INT+(\.INT*)?|\.INT*)
-PR : \b(programa|var|caracter|cadeia|procedimento|inicio|fim|inteiro|booleano|funcao|se|entao|senao|leia|escreva|ou|e|nao|falso|verdadeiro|de|faca|real|vetor|enquanto)\b
+REAL : (D+(D|Z)*)+(\.[0-9]*)?|(Z?\.[0-9]+)|Z\.?
 ASPASDUPLAS : \"
-id : (@(({D}|{L})+(@|_)?)*({L}|{D}))|{L}((@|_)?({D}|{L})+)*
-constI : {INT}(\E{INT})?
-constR : {REAL}(\e(\-|\+){D}({D}|{Z}))
-constL : (\'(.|{ASPASDUPLAS})(\n|\'))
-comment : #.?\n
-blockComment : "/*"([^"*"]*("*"*[^"*"/]+)?)*"*/"
+ASPASIMP : "'"
+PR : {MINUSCULAS}+
+comentario : #.?\n
+comentarioBloco : "/*"([^"*"]*("*"*[^"*"/]+)?)*"*/"
+E : "E"
 se1 : ";"
 se2 : ","
 se3 : "."
@@ -32,3 +31,10 @@ se18 : ".."
 se19 : "<>"
 se20 : "<="
 se21 : ">="
+
+REAL(alternativo) :([1-9]+([1-9]|0)*)+(\.[0-9]*)?|(0?\.[0-9]+)|0\.?
+
+id : (@(({D}|{L})+(@|_)?)*({L}|{D}))|{L}((@|_)?({D}|{L})+)*
+constI : {INT}(\E{INT})?
+constR : {REAL}(\e(\-|\+){D}({D}|{Z}))
+constL : (\'(.|\")*\n?\')
