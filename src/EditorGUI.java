@@ -38,7 +38,10 @@ public class EditorGUI extends JFrame implements ActionListener {
     //============================================
     // FIELDS
     //============================================
-
+	
+	private Lexico analisadorLexico; 
+	private Sintatico analisadorSintatico; 
+	
     // Menus
     private JMenu fileMenu;
     private JMenu editMenu;
@@ -83,7 +86,9 @@ public class EditorGUI extends JFrame implements ActionListener {
 
     public EditorGUI() {
         super("JavaEdit");
-
+        
+        initAnalysers();
+        
         // Create Menus
         fileMenu();
         editMenu();
@@ -100,7 +105,12 @@ public class EditorGUI extends JFrame implements ActionListener {
         // Create Window
         createEditorWindow();
     }
-
+    
+    private void initAnalysers() {
+    	analisadorLexico = new Lexico();
+    	analisadorSintatico = new Sintatico();
+    }
+    
     private JFrame createEditorWindow() {
         editorWindow = new JFrame("JavaEdit");
         editorWindow.setVisible(true);
