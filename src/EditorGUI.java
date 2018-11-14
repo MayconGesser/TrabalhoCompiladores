@@ -429,7 +429,13 @@ public class EditorGUI extends JFrame implements ActionListener {
         }
         else if(event.getSource() == analisarSintatica) {
         	String textoFonte = textArea.getText();
-//        	analisadorSintatico.parse(analisadorLexico, null);
+        	try {
+				analisadorSintatico.parse(analisadorLexico, null);
+				System.out.println("deu boa sintaticamente");
+			} catch (LexicalError | SyntaticError | SemanticError e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
     }
 
