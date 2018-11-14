@@ -114,7 +114,8 @@ public class EditorGUI extends JFrame implements ActionListener {
     private JFrame createEditorWindow() {
         editorWindow = new JFrame("JavaEdit");
         editorWindow.setVisible(true);
-        editorWindow.setExtendedState(Frame.MAXIMIZED_BOTH);
+        editorWindow.setPreferredSize(new Dimension(500,500));
+        //editorWindow.setExtendedState(Frame.MAXIMIZED_BOTH);
         editorWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
         // Create Menu Bar
         editorWindow.setJMenuBar(createMenuBar());
@@ -418,18 +419,18 @@ public class EditorGUI extends JFrame implements ActionListener {
         else if(event.getSource() == analisarLexico) {
         	String textoFonte = textArea.getText();
         	char[] simbolos = textoFonte.toCharArray();
-        	for(int i = 0; i<simbolos.length; i++) {
-        		char caractere = simbolos[i];
-        		analisadorLexico.setInput(String.valueOf(caractere));
-        		analisadorLexico.setPosition(i);
-        		try {
-        			analisadorLexico.nextToken();
-        		}catch(LexicalError lexicalError) {
-        			System.out.println(lexicalError.getMessage());
-        		}
+        	analisadorLexico.setInput(textoFonte);
+        	try {
+        		analisadorLexico.nextToken();
+        		System.out.println("deu boa...");
+        	}catch(LexicalError lexicalError) {
+        		System.out.println(lexicalError.getMessage());
         	}
-        	System.out.println("deu boa...");
-        }        
+        }
+        else if(event.getSource() == analisarSintatica) {
+        	String textoFonte = textArea.getText();
+//        	analisadorSintatico.parse(analisadorLexico, null);
+        }
     }
 
     //============================================

@@ -13,6 +13,10 @@ public class AnalysisError extends Exception
         super(msg);
         this.position = -1;
     }
+    
+    public AnalysisError(String msg, char character, int position) {
+    	
+    }
 
     public int getPosition()
     {
