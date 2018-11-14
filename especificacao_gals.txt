@@ -1,15 +1,52 @@
 Definições Regulares
-L : [a-zA-Z]
-D : [0-9]
-CC : [\	\t\n\r]
-Comentario : "/*" [^"*"]* "*/"
-B : "|"
-E : "&"
-FALSO : falso 
-VERDADEIRO : verdadeiro
-
+D: [1-9]
+Z: 0
+L: [a-zA-Z]
+MINUSCULAS : [a-z]
+INT : (D(D|Z))*
+REAL : (D+(D|Z)*)+(\.[0-9]*)?|(Z?\.[0-9]+)|Z\.?
+ASPASDUPLAS : \"
+ASPASIMP : "'"
+comentario : #.?\n
+comentarioBloco : "/*"([^"*"]*("*"*[^"*"/]+)?)*"*/"
+E : "E"
 
 Tokens
+pr : {MINUSCULAS}+
+id : (@(({D}|{L})+(@|_)?)*({L}|{D}))|{L}((@|_)?({D}|{L})+)*
+num_int : {INT}({E}{INT})?
+num_real: {REAL}(\e(\-|\+){D}({D}|{Z}))
+literal : ({ASPASIMP}(.|{ASPASDUPLAS})*\n?{ASPASIMP})
+booleano		= pr : "booleano"
+cadeia		= pr : "cadeia"
+caracter		= pr : "caracter"
+de		= pr : "de"
+div		= pr : "div"
+e		= pr : "e"
+enquanto		= pr : "enquanto"
+entao		= pr : "entao"
+escreva		= pr : "escreva"
+faca		= pr : "faca"
+falso		= pr : "falso"
+fim		= pr : "fim"
+funcao 		= pr : "funcao"
+inicio		= pr : "inicio"
+inteiro		= pr : "inteiro"
+leia		= pr : "leia"
+metodo		= pr : "metodo"
+nao		= pr : "nao"
+ou		= pr : "ou"
+procedimento	= pr : "procedimento"
+programa		= pr : "programa"
+real		= pr : "real"
+ref		= pr : "ref"
+retorne		= pr : "retorne"
+se		= pr : "se"
+senao		= pr : "senao"
+val		= pr : "val"
+var		= pr : "var"
+verdadeiro		= pr : "verdadeiro"
+vetor		= pr : "vetor"
 ":"
 "<"
 "+"
@@ -31,36 +68,6 @@ Tokens
 ">="
 ":="
 "<>"
-
-id : {L} ({L}|{D})*
-num_int : {D}+
-num_real : num_int (\.{D})*
-literal : \"(L|D|CC)*\"
-ou : {B}{B}
-e : {E}{E}
-nao : "!"
-falso : FALSO 
-verdadeiro : VERDADEIRO
-
-programa		= id : "programa"
-inteiro		= id : "inteiro" 
-real		= id : "real"
-booleano		= id : "booleano"
-caracter		= id : "caracter"
-cadeia 		= id : "cadeia"
-metodo		= id : "metodo"
-ref		= id : "ref"
-val 		= id : "val"
-se		= id : "se"
-entao		= id : "entao"
-senao		= id : "senao"
-leia		= id : "leia"
-escreva		= id : "escreva"
-retorne		= id : "retorne"
-div		= id : "div"
-enquanto		= id : "enquanto"
-faca		= id : "faca"
-
 
 Não Terminais
 <bloco>
