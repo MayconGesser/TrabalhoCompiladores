@@ -15,7 +15,7 @@ L: [a-zA-Z]
 REAL : [0-9]+(\.[0-9]*)?|([0-9]?\.[0-9]+)|[0-9]\.?
 ASPASDUPLAS : \"
 ASPASIMP : "'"
-comentario : #.?\n
+comentario : #.*
 comentarioBloco : "/*"([^"*"]*("*"*[^"*"/]+)?)*"*/"
 ESPACO : \s
 NOVA_LINHA : \n
