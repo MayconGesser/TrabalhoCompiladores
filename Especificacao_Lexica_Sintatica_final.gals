@@ -12,18 +12,18 @@ Parser = LL
 #RegularDefinitions
 D: [0-9]
 L: [a-zA-Z]
-REAL : [0-9]+(\.[0-9]*)?|([0-9]?\.[0-9]+)|[0-9]\.?
+REAL : [0-9]*([0-9]\.|[0-9]|\.[0-9])[0-9]*
 ASPASDUPLAS : \"
 ASPASIMP : "'"
 comentario : #.*\n
-comentarioBloco : "/*"([^"*"]*("*"*[^"*"/]+)?)*"*/"
+comentarioBloco : "/*"([^"*"]*("*"*[^"*""/"]+)?)*"*"*"*/"
 ESPACO : \s
 NOVA_LINHA : \n
 TAB : \t
 #Tokens
+num_int : ({D}+(("E"|"e")(\+|\-)?{D}{D}+)?)
+num_real: {REAL}(("e"|"E")(\-|\+)?{D}{D}+)?
 id : (@(({D}|{L})+(@|_)?)*({L}|{D}))|{L}((@|_)?({D}|{L})+)*
-num_int : ({D}+("E"{D}{D}+)?)
-num_real: {REAL}(\e(\-|\+){D}{D}+)
 literal : ({ASPASIMP}(.|{ASPASDUPLAS})*\n?{ASPASIMP})
 : {ESPACO}
 : {comentario}
@@ -56,7 +56,7 @@ se		= id : "se"
 senao		= id : "senao"
 val		= id : "val"
 var		= id : "var"
-verdadeiro		= id : "verdadeiro"
+verdadeiro	= id : "verdadeiro"
 vetor		= id : "vetor"
 ":"
 "<"
@@ -120,33 +120,33 @@ vetor		= id : "vetor"
 <bloco> ::= <dcl_var_const>  <dcl_metodos>  <com_composto>  ;		 	
  
 <dcl_var_const> ::=  <tipo>  <dimensao>  <lid>  <fator_const> ";" <dcl_var_const> 
-                              |   Ã® ;
+                              |   î ;
 
 <tipo> ::=  inteiro | real | booleano | caracter | cadeia "[" <constante> "]";
 
-<dimensao> ::= "["  <constante>  "]"  |   Ã® ;
+<dimensao> ::= "["  <constante>  "]"  |   î ;
 
 <lid> ::= id  <rep_lid>  ;
 
-<rep_lid> ::= ","  <lid> | Ã® ;
+<rep_lid> ::= ","  <lid> | î ;
 
-<fator_const> ::=   "="  <constante>  |   Ã® ;
+<fator_const> ::=   "="  <constante>  |   î ;
 
-<dcl_metodos> ::= <dcl_metodo>  ";"  <dcl_metodos>  |  Ã® ;
+<dcl_metodos> ::= <dcl_metodo>  ";"  <dcl_metodos>  |  î ;
 
 <dcl_metodo> ::= metodo id   <par_formais>    <tipo_metodo> ";"   <bloco>  ;                 
 
-<par_formais> ::= "(" <mp_par> <lid> ":" <tipo> <rep_par> ")" | Ã® ;                      
+<par_formais> ::= "(" <mp_par> <lid> ":" <tipo> <rep_par> ")" | î ;                      
 
-<rep_par> ::= ";" <mp_par>  <lid>  ":"  <tipo>  <rep_par>  |  Ã® ;
+<rep_par> ::= ";" <mp_par>  <lid>  ":"  <tipo>  <rep_par>  |  î ;
 
-<tipo_metodo> ::=   ":"  <tipo>  | Ã® ;
+<tipo_metodo> ::=   ":"  <tipo>  | î ;
 
 <mp_par>  ::= ref  |  val ;
 
 <com_composto>  ::= "{"   <comando>  <replistacomando>  "}"  ;                             
 
-<replistacomando> ::=   ";"  <comando>  <replistacomando>  |  Ã® ;
+<replistacomando> ::=   ";"  <comando>  <replistacomando>  |  î ;
 
 <comando> ::= id  <rcomid>
              |  <com_composto>                                 
@@ -155,33 +155,33 @@ vetor		= id : "vetor"
              | leia "(" <lid> ")"                                    
              | escreva "(" <lista_expr> ")"  
              | retorne  <expressao>
-	   |  Ã® ;
+	   |  î ;
 
-<senaoparte> ::= senao  <comando>  |  Ã® ;
+<senaoparte> ::= senao  <comando>  |  î ;
 
 <rcomid> ::= ":=" <expressao> 
                    |   "[" <expressao> "]" ":=" <expressao> 
                    |   "(" <lista_expr> ")" 
-                   |   Ã® ;
+                   |   î ;
 <lista_expr>  ::=  <expressao> <rep_lexpr> ;
 
-<rep_lexpr>  ::= "," <expressao> <rep_lexpr> |  Ã® ;
+<rep_lexpr>  ::= "," <expressao> <rep_lexpr> |  î ;
 
 <expressao>  ::= <expsimp> <resto_expressao> ;
 
-<resto_expressao> ::= <oprel> <expsimp> |  Ã® ;
+<resto_expressao> ::= <oprel> <expsimp> |  î ;
 
 <oprel> ::= "=" | "<" | ">" | ">=" | "<=" | "<>" ;
 
 <expsimp> ::= <termo> <rep_expsimp> ;
 
-<rep_expsimp> ::= <op_add> <termo> <rep_expsimp>  |  Ã® ;
+<rep_expsimp> ::= <op_add> <termo> <rep_expsimp>  |  î ;
                       
 <op_add> ::= "+" | "-" | ou ;
 
 <termo> ::= <fator> <rep_termo> ;
 
-<rep_termo> ::= <op_mult> <fator> <rep_termo> |  Ã® ;
+<rep_termo> ::= <op_mult> <fator> <rep_termo> |  î ;
 
 <op_mult> ::= "*" | "/" |  div |  e ;
 
@@ -193,7 +193,7 @@ vetor		= id : "vetor"
 
 <rvar> ::= "(" <expressao> <rep_lexpr> ")"  
               |   "[" <expressao>  "]"
-              |   Ã® ;
+              |   î ;
 
 <constante> ::= id  |  <constante_explicita> ;
   
