@@ -14,17 +14,18 @@ D: [0-9]
 L: [a-zA-Z]
 REAL : [0-9]*([0-9]\.|[0-9]|\.[0-9])[0-9]*
 ASPASDUPLAS : \"
-ASPASIMP : "'"
+ASPASIMP : '
 comentario : #.*\n
 comentarioBloco : "/*"([^"*"]*("*"*[^"*""/"]+)?)*"*"*"*/"
 ESPACO : \s
 NOVA_LINHA : \n
 TAB : \t
+LITERAL : '([^']|\n)*'|‘‘
 #Tokens
 num_int : ({D}+(("E"|"e")(\+|\-)?{D}{D}+)?)
 num_real: {REAL}(("e"|"E")(\-|\+)?{D}{D}+)?
 id : (@(({D}|{L})+(@|_)?)*({L}|{D}))|{L}((@|_)?({D}|{L})+)*
-literal : ({ASPASIMP}(.|{ASPASDUPLAS})*\n?{ASPASIMP})
+literal : {LITERAL}
 : {ESPACO}
 : {comentario}
 : {comentarioBloco}
@@ -79,6 +80,7 @@ vetor		= id : "vetor"
 ">="
 ":="
 "<>"
+"–"
 #NonTerminals
 <programa>
 <bloco>
@@ -177,7 +179,7 @@ vetor		= id : "vetor"
 
 <rep_expsimp> ::= <op_add> <termo> <rep_expsimp>  |  î ;
                       
-<op_add> ::= "+" | "-" | ou ;
+<op_add> ::= "+" | "-" | "–" | ou ;
 
 <termo> ::= <fator> <rep_termo> ;
 

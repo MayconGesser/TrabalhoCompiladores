@@ -11,11 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.print.PageFormat;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
@@ -38,10 +34,10 @@ public class EditorGUI extends JFrame implements ActionListener {
     //============================================
     // FIELDS
     //============================================
-	
-	private Lexico analisadorLexico; 
-	private Sintatico analisadorSintatico; 
-	
+
+    private Lexico analisadorLexico;
+    private Sintatico analisadorSintatico;
+
     // Menus
     private JMenu fileMenu;
     private JMenu editMenu;
@@ -86,9 +82,9 @@ public class EditorGUI extends JFrame implements ActionListener {
 
     public EditorGUI() {
         super("JavaEdit");
-        
+
         initAnalysers();
-        
+
         // Create Menus
         fileMenu();
         editMenu();
@@ -105,16 +101,16 @@ public class EditorGUI extends JFrame implements ActionListener {
         // Create Window
         createEditorWindow();
     }
-    
+
     private void initAnalysers() {
-    	analisadorLexico = new Lexico();
-    	analisadorSintatico = new Sintatico();
+        analisadorLexico = new Lexico();
+        analisadorSintatico = new Sintatico();
     }
-    
+
     private JFrame createEditorWindow() {
         editorWindow = new JFrame("JavaEdit");
         editorWindow.setVisible(true);
-        editorWindow.setPreferredSize(new Dimension(500,500));
+        editorWindow.setPreferredSize(new Dimension(500, 500));
         //editorWindow.setExtendedState(Frame.MAXIMIZED_BOTH);
         editorWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
         // Create Menu Bar
@@ -138,7 +134,7 @@ public class EditorGUI extends JFrame implements ActionListener {
 
         scroll = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-        return textArea;        
+        return textArea;
     }
 
     private JMenuBar createMenuBar() {
@@ -261,9 +257,9 @@ public class EditorGUI extends JFrame implements ActionListener {
         editMenu.add(paste);
         editMenu.add(cut);
     }
-    
+
     private void lexicoMenu() {
-    	lexicoMenu = new JMenu("Léxico");
+        lexicoMenu = new JMenu("Léxico");
         lexicoMenu.setPreferredSize(new Dimension(100, 20));
 
         // Add file menu items
@@ -275,9 +271,9 @@ public class EditorGUI extends JFrame implements ActionListener {
         // Add items to menu
         lexicoMenu.add(analisarLexico);
     }
-    
+
     private void sintaticoMenu() {
-    	sintaticoMenu = new JMenu("Sintático");
+        sintaticoMenu = new JMenu("Sintático");
         sintaticoMenu.setPreferredSize(new Dimension(100, 20));
 
         // Add file menu items
@@ -289,9 +285,9 @@ public class EditorGUI extends JFrame implements ActionListener {
         // Add items to menu
         sintaticoMenu.add(analisarSintatica);
     }
-    
+
     private void semanticoMenu() {
-    	semanticoMenu = new JMenu("Semântico");
+        semanticoMenu = new JMenu("Semântico");
         semanticoMenu.setPreferredSize(new Dimension(100, 20));
 
         // Add file menu items
@@ -303,7 +299,7 @@ public class EditorGUI extends JFrame implements ActionListener {
         // Add items to menu
         semanticoMenu.add(analisarSemantica);
     }
-    
+
     // Method for saving files - Removes duplication of code
     private void saveFile(File filename) {
         try {
@@ -343,23 +339,23 @@ public class EditorGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        if(event.getSource() == newFile) {
+        if (event.getSource() == newFile) {
             new EditorGUI();
-        } else if(event.getSource() == openFile) {
+        } else if (event.getSource() == openFile) {
             JFileChooser open = new JFileChooser();
             open.showOpenDialog(null);
-            File file = open.getSelectedFile();                
+            File file = open.getSelectedFile();
             openingFiles(file);
-        } else if(event.getSource() == saveFile) {
+        } else if (event.getSource() == saveFile) {
             JFileChooser save = new JFileChooser();
             File filename = save.getSelectedFile();
-            if(opened == false && saved == false) {
+            if (opened == false && saved == false) {
                 save.showSaveDialog(null);
                 int confirmationResult;
-                if(filename.exists()) {
+                if (filename.exists()) {
                     confirmationResult = JOptionPane.showConfirmDialog(saveFile, "Replace existing file?");
-                    if(confirmationResult == JOptionPane.YES_OPTION) {
-                        saveFile(filename);                        
+                    if (confirmationResult == JOptionPane.YES_OPTION) {
+                        saveFile(filename);
                     }
                 } else {
                     saveFile(filename);
@@ -367,75 +363,81 @@ public class EditorGUI extends JFrame implements ActionListener {
             } else {
                 quickSave(openedFile);
             }
-        } else if(event.getSource() == saveAsFile) {
+        } else if (event.getSource() == saveAsFile) {
             JFileChooser saveAs = new JFileChooser();
             saveAs.showSaveDialog(null);
             File filename = saveAs.getSelectedFile();
             int confirmationResult;
-            if(filename.exists()) {
+            if (filename.exists()) {
                 confirmationResult = JOptionPane.showConfirmDialog(saveAsFile, "Replace existing file?");
-                if(confirmationResult == JOptionPane.YES_OPTION) {
-                    saveFile(filename);                        
+                if (confirmationResult == JOptionPane.YES_OPTION) {
+                    saveFile(filename);
                 }
             } else {
                 saveFile(filename);
             }
-        } else if(event.getSource() == pageSetup) {
+        } else if (event.getSource() == pageSetup) {
             job = PrinterJob.getPrinterJob();
-            format = job.pageDialog(job.defaultPage());    
-        } else if(event.getSource() == printFile) {
+            format = job.pageDialog(job.defaultPage());
+        } else if (event.getSource() == printFile) {
             job = PrinterJob.getPrinterJob();
-            if(job.printDialog()) {
+            if (job.printDialog()) {
                 try {
                     job.print();
                 } catch (PrinterException err) {
                     err.printStackTrace();
                 }
             }
-        } else if(event.getSource() == exit) {
+        } else if (event.getSource() == exit) {
             System.exit(0);
-        } else if(event.getSource() == undoEdit) {
+        } else if (event.getSource() == undoEdit) {
             try {
                 undo.undo();
-            } catch(CannotUndoException cu) {
+            } catch (CannotUndoException cu) {
                 cu.printStackTrace();
             }
-        } else if(event.getSource() == redoEdit) {
+        } else if (event.getSource() == redoEdit) {
             try {
                 undo.redo();
-            } catch(CannotUndoException cur) {
+            } catch (CannotUndoException cur) {
                 cur.printStackTrace();
             }
-        } else if(event.getSource() == selectAll) {
+        } else if (event.getSource() == selectAll) {
             textArea.selectAll();
-        }  else if(event.getSource() == copy) {
+        } else if (event.getSource() == copy) {
             textArea.copy();
-        } else if(event.getSource() == paste) {
+        } else if (event.getSource() == paste) {
             textArea.paste();
-        } else if(event.getSource() == cut) {
+        } else if (event.getSource() == cut) {
             textArea.cut();
         }
         //Analisadores
-        else if(event.getSource() == analisarLexico) {
-        	String textoFonte = textArea.getText();
-        	char[] simbolos = textoFonte.toCharArray();
-        	analisadorLexico.setInput(textoFonte);
-        	try {
-        		analisadorLexico.nextToken();
-        		System.out.println("deu boa...");
-        	}catch(LexicalError lexicalError) {
-        		System.out.println(lexicalError.getMessage());
-        	}
+        else if (event.getSource() == analisarLexico) {
+            analiseLexica();
+        } else if (event.getSource() == analisarSintatica) {
+            analisadorLexico.setInput(new StringReader(textArea.getText()));
+            try {
+                analisadorSintatico.parse(analisadorLexico, null);
+                System.out.println("deu boa sintaticamente");
+            } catch (LexicalError | SyntaticError | SemanticError e) {
+                textArea.select(e.getPosition(), e.getPosition() + 1);
+                JOptionPane.showMessageDialog(editorWindow, e.getMessage());
+            }
         }
-        else if(event.getSource() == analisarSintatica) {
-        	String textoFonte = textArea.getText();
-        	try {
-				analisadorSintatico.parse(analisadorLexico, null);
-				System.out.println("deu boa sintaticamente");
-			} catch (LexicalError | SyntaticError | SemanticError e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+    }
+
+    public void analiseLexica() {
+        String textoFonte = textArea.getText();
+        analisadorLexico.setInput(new StringReader(textoFonte));
+        try {
+            Token token = analisadorLexico.nextToken();
+            while (token != null) {
+                token = analisadorLexico.nextToken();
+            }
+            System.out.println("deu boa...");
+        } catch (LexicalError lexicalError) {
+            textArea.select(lexicalError.getPosition(), lexicalError.getPosition() + 1);
+            JOptionPane.showMessageDialog(editorWindow, lexicalError.getMessage());
         }
     }
 
