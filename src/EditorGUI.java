@@ -418,6 +418,7 @@ public class EditorGUI extends JFrame implements ActionListener {
             analisadorLexico.setInput(new StringReader(textArea.getText()));
             try {
                 analisadorSintatico.parse(analisadorLexico, null);
+                JOptionPane.showMessageDialog(editorWindow, "A análise sintática foi realizada com sucesso!");
                 System.out.println("deu boa sintaticamente");
             } catch (LexicalError | SyntaticError | SemanticError e) {
                 textArea.select(e.getPosition(), e.getPosition() + 1);
@@ -435,6 +436,7 @@ public class EditorGUI extends JFrame implements ActionListener {
                 token = analisadorLexico.nextToken();
             }
             System.out.println("deu boa...");
+            JOptionPane.showMessageDialog(editorWindow, "A análise léxica foi realizada com sucesso!");
         } catch (LexicalError lexicalError) {
             textArea.select(lexicalError.getPosition(), lexicalError.getPosition() + 1);
             JOptionPane.showMessageDialog(editorWindow, lexicalError.getMessage());
