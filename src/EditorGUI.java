@@ -37,6 +37,7 @@ public class EditorGUI extends JFrame implements ActionListener {
 
     private Lexico analisadorLexico;
     private Sintatico analisadorSintatico;
+    private Semantico analisadorSemantico;
 
     // Menus
     private JMenu fileMenu;
@@ -105,6 +106,7 @@ public class EditorGUI extends JFrame implements ActionListener {
     private void initAnalysers() {
         analisadorLexico = new Lexico();
         analisadorSintatico = new Sintatico();
+        analisadorSemantico = new Semantico();
     }
 
     private JFrame createEditorWindow() {
@@ -419,7 +421,14 @@ public class EditorGUI extends JFrame implements ActionListener {
             try {
                 analisadorSintatico.parse(analisadorLexico, null);
                 JOptionPane.showMessageDialog(editorWindow, "A análise sintática foi realizada com sucesso!");
-                System.out.println("deu boa sintaticamente");
+            } catch (LexicalError | SyntaticError | SemanticError e) {
+                textArea.select(e.getPosition(), e.getPosition() + 1);
+                JOptionPane.showMessageDialog(editorWindow, e.getMessage());
+            }
+        } else if (event.getSource() == analisadorSemantico) {
+            analisadorLexico.setInput(new StringReader(textArea.getText()));
+            try {
+                analisadorSintatico.parse(analisadorLexico, analisadorSemantico);
             } catch (LexicalError | SyntaticError | SemanticError e) {
                 textArea.select(e.getPosition(), e.getPosition() + 1);
                 JOptionPane.showMessageDialog(editorWindow, e.getMessage());
@@ -435,19 +444,10 @@ public class EditorGUI extends JFrame implements ActionListener {
             while (token != null) {
                 token = analisadorLexico.nextToken();
             }
-            System.out.println("deu boa...");
             JOptionPane.showMessageDialog(editorWindow, "A análise léxica foi realizada com sucesso!");
         } catch (LexicalError lexicalError) {
             textArea.select(lexicalError.getPosition(), lexicalError.getPosition() + 1);
             JOptionPane.showMessageDialog(editorWindow, lexicalError.getMessage());
         }
-    }
-
-    //============================================
-    // GETTERS AND SETTERS
-    //============================================
-
-    public JTextArea getTextArea() {
-        return textArea;
     }
 }

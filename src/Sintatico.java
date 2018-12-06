@@ -43,16 +43,18 @@ public class Sintatico implements Constants {
                     return false;
                 }
             } else {
-                throw new SyntaticError("Foi encontrado um erro léxico " + PARSER_ERROR[x], currentToken.getPosition());
+                throw new SyntaticError(PARSER_ERROR[x], currentToken.getPosition());
             }
         } else if (isNonTerminal(x)) {
             if (pushProduction(x, a))
                 return false;
             else
-                throw new SyntaticError("Foi encontrado um erro léxico " + PARSER_ERROR[x], currentToken.getPosition());
+                throw new SyntaticError(PARSER_ERROR[x], currentToken.getPosition());
         } else // isSemanticAction(x)
         {
-            semanticAnalyser.executeAction(x - FIRST_SEMANTIC_ACTION, previousToken);
+            if (semanticAnalyser != null) {
+                semanticAnalyser.executeAction(x - FIRST_SEMANTIC_ACTION, previousToken);
+            }
             return false;
         }
     }
@@ -61,7 +63,7 @@ public class Sintatico implements Constants {
         int p = PARSER_TABLE[topStack - FIRST_NON_TERMINAL][tokenInput - 1];
         if (p >= 0) {
             int[] production = PRODUCTIONS[p];
-            //empilha a produ��o em ordem reversa
+            //empilha a produção em ordem reversa
             for (int i = production.length - 1; i >= 0; i--) {
                 stack.push(new Integer(production[i]));
             }
