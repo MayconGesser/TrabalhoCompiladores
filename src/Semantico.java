@@ -10,6 +10,8 @@ public class Semantico implements Constants {
     private final int CONT_LID_PAR_FORMAL = 2;
     private final int CONT_LID_LEITURA = 3;
 
+    private final int CONT_EXPR_IMPRESSAO = 1;
+
     private final int TIPO_INTEIRO = 1;
     private final int TIPO_REAL = 2;
     private final int TIPO_BOOLEANO = 3;
@@ -43,6 +45,8 @@ public class Semantico implements Constants {
     private int categoriaAtual;
     private int mpp;
     private int posId;
+    private int tipoExpr;
+    private int contextoEXPR;
 
 
     public void executeAction(int action, Token token) throws SemanticError {
@@ -202,17 +206,47 @@ public class Semantico implements Constants {
                 }
                 return;
             case 129:
-                //TODO TO BE CONTINUED
+                if (tipoExpr != TIPO_BOOLEANO && tipoExpr != TIPO_INTEIRO) {
+                    throw new SemanticError("Tipo inválido da expressão", token.getPosition());
+                } else {
+                    //TODO acao de geracao de codigo ?lul?
+                }
                 return;
+            case 130:
+                contextoLID = CONT_LID_LEITURA;
+                return;
+            case 131:
+                contextoEXPR = CONT_EXPR_IMPRESSAO;
+                return;
+            case 132:
+                if (!metodoHasTipo()) {
+                    throw new SemanticError("'Retorne ' só pode ser usado em Método com tipo", token.getPosition());
+                } else if (tipoExpr != tipoAtual) {
+                    throw new SemanticError("Tipo de retorno inválido", token.getPosition());
+                }
+                else {
+                    //TODO acao de geracao de codigo ?lul?
+                }
+                return;
+            case 133:
+                if (categoriaAtual == CAT_VARIAVEL || categoriaAtual == CAT_CONSTANTE){
+
+                }
         }
     }
 
+    private boolean metodoHasTipo() {
+        //TODO verifica se o metodo atual tem tipo
+        return tipoAtual != TIPO_NULO;
+    }
+
     private int findPosicaoId(Token token) {
-        //TODO retorna a posicao na tabela do id espcifico
+        //TODO retorna a posicao na tabela do id especifico
         return -1;
     }
 
     private void setTipoMetodo(int tipoAtual) {
+        //TODO seta o tipo do metodo na TS
     }
 
     private void updatePFs() {

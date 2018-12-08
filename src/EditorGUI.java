@@ -417,22 +417,31 @@ public class EditorGUI extends JFrame implements ActionListener {
         else if (event.getSource() == analisarLexico) {
             analiseLexica();
         } else if (event.getSource() == analisarSintatica) {
-            analisadorLexico.setInput(new StringReader(textArea.getText()));
-            try {
-                analisadorSintatico.parse(analisadorLexico, null);
-                JOptionPane.showMessageDialog(editorWindow, "A análise sintática foi realizada com sucesso!");
-            } catch (LexicalError | SyntaticError | SemanticError e) {
-                textArea.select(e.getPosition(), e.getPosition() + 1);
-                JOptionPane.showMessageDialog(editorWindow, e.getMessage());
-            }
+            analiseSintatica();
         } else if (event.getSource() == analisadorSemantico) {
-            analisadorLexico.setInput(new StringReader(textArea.getText()));
-            try {
-                analisadorSintatico.parse(analisadorLexico, analisadorSemantico);
-            } catch (LexicalError | SyntaticError | SemanticError e) {
-                textArea.select(e.getPosition(), e.getPosition() + 1);
-                JOptionPane.showMessageDialog(editorWindow, e.getMessage());
-            }
+            analiseSemantica();
+        }
+    }
+
+    private void analiseSemantica() {
+        analisadorLexico.setInput(new StringReader(textArea.getText()));
+        try {
+            analisadorSintatico.parse(analisadorLexico, analisadorSemantico);
+            JOptionPane.showMessageDialog(editorWindow, "A análise semântica foi realizada com sucesso!");
+        } catch (LexicalError | SyntaticError | SemanticError e) {
+            textArea.select(e.getPosition(), e.getPosition() + 1);
+            JOptionPane.showMessageDialog(editorWindow, e.getMessage());
+        }
+    }
+
+    private void analiseSintatica() {
+        analisadorLexico.setInput(new StringReader(textArea.getText()));
+        try {
+            analisadorSintatico.parse(analisadorLexico, null);
+            JOptionPane.showMessageDialog(editorWindow, "A análise sintática foi realizada com sucesso!");
+        } catch (LexicalError | SyntaticError | SemanticError e) {
+            textArea.select(e.getPosition(), e.getPosition() + 1);
+            JOptionPane.showMessageDialog(editorWindow, e.getMessage());
         }
     }
 
