@@ -576,7 +576,9 @@ public class Semantico implements Constants, SemanticConstants {
 
     private boolean isCompativel(int tipoExpr, int tipoLadoEsq) {
         //TODO verifica se o tipoExpr pode ser "castado" para o tipoLadoEsq
-        return false;
+        return  tipoExpr == tipoLadoEsq ||
+        		(tipoExpr == TIPO_INTEIRO && tipoLadoEsq == TIPO_REAL) ||
+        		(tipoExpr == TIPO_BOOLEANO && tipoLadoEsq == TIPO_INTEIRO);
     }
 
     private int getTipoId(Token token) {
