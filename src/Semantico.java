@@ -35,7 +35,7 @@ public class Semantico implements Constants, SemanticConstants {
             case 101:
                 nivelAtual = 0;
                 deslocamento = 0;
-                insertTS(token, ID_PROGRAMA);
+                insertTSProg(token);
                 return;
             case 102:
                 contextoLID = CONT_LID_DECL;
@@ -94,14 +94,14 @@ public class Semantico implements Constants, SemanticConstants {
                     if (doesIdExistsOnThatLevel(token)) {
                         throw new SemanticError("Id já declarado", token.getPosition());
                     } else {
-                        insertTS(token, ID_VARIAVEL);
+                        insertTSVar(token);
                     }
                 } else if (contextoLID == CONT_LID_PAR_FORMAL) {
                     if (doesIdExistsOnThatLevel(token)) {
                         throw new SemanticError("Id de parâmetro repetido", token.getPosition());
                     } else {
                         numParamFormais++;
-                        insertTS(token, ID_VARIAVEL);
+                        insertTSPF(token);
                     }
                 } else if (contextoLID == CONT_LID_LEITURA) {
                     if (!doesIdExistsOnThatLevel(token)) {
@@ -134,7 +134,8 @@ public class Semantico implements Constants, SemanticConstants {
                 if (doesIdExistsOnThatLevel(token)) {
                     throw new SemanticError("Id já declarado", token.getPosition());
                 } else {
-                    insertTS(token, ID_METODO);
+                    categoriaAtual = CAT_METODO;
+                    insertTSMet(token);
                     posMetodoAtual = getUltimoIdTS();
                     numParamFormais = 0;
                     nivelAtual++;
@@ -164,7 +165,6 @@ public class Semantico implements Constants, SemanticConstants {
                 } else {
                     updatePF();
                 }
-                resetAtrs();
                 return;
             case 124:
                 if (tipoAtual == TIPO_CADEIA) {
@@ -173,7 +173,6 @@ public class Semantico implements Constants, SemanticConstants {
                     tipoMetAtual = tipoAtual;
 //                    setTipoMetodo(token, nivelAtual, tipoAtual);
                 }
-                resetAtrs();
                 return;
             case 125:
                 tipoMetAtual = TIPO_NULO;
@@ -217,7 +216,7 @@ public class Semantico implements Constants, SemanticConstants {
             case 133:
                 int categoriaId = getCategoriaId(token);
                 if (categoriaId == CAT_VARIAVEL || categoriaId == CAT_CONSTANTE) {
-                    if (isIdVetor(token, nivelAtual)) {
+                    if (isIdVetor(token)) {
                         throw new SemanticError("id deveria ser indexado", token.getPosition());
                     } else {
                         tipoLadoEsq = getTipoId(token);
@@ -237,7 +236,7 @@ public class Semantico implements Constants, SemanticConstants {
                 if (getCategoriaId(token) != CAT_VARIAVEL) {
                     throw new SemanticError("esperava-se uma variável", token.getPosition());
                 } else {
-                    if (getTipoId(token) != TIPO_CADEIA && !isIdVetor(token, nivelAtual)) {
+                    if (getTipoId(token) != TIPO_CADEIA && !isIdVetor(token)) {
                         throw new SemanticError("Apenas vetores e cadeias podem ser indexados", token.getPosition());
                     } else {
                         tipoVarIndexada = getTipoId(token);
@@ -449,7 +448,7 @@ public class Semantico implements Constants, SemanticConstants {
                 int categoria = getCategoriaId(token);
                 int tipo = getTipoId(token);
                 if (categoria == CAT_VARIAVEL || categoria == CAT_PARAMETRO) {
-                    if (isIdVetor(token, nivelAtual)) {
+                    if (isIdVetor(token)) {
                         throw new SemanticError("Vetor deve ser indexado", token.getPosition());
                     } else {
                         tipoVar = tipo;
@@ -507,12 +506,6 @@ public class Semantico implements Constants, SemanticConstants {
 
     private int getCategoriaId() {
         return TS.getCategoriaSimbolo(posId);
-    }
-
-    private void resetAtrs() {
-        tipoAtual = -1;
-        subCategoriaAtual = -1;
-        categoriaAtual = -1;
     }
 
     private int getValor(Token token) {
@@ -610,7 +603,7 @@ public class Semantico implements Constants, SemanticConstants {
         return TS.getCategoriaSimbolo(token, nivelAtual);
     }
 
-    private boolean isIdVetor(Token token, int nivel) {
+    private boolean isIdVetor(Token token) {
         return TS.ehIdVetor(token, nivelAtual);
     }
 
@@ -681,20 +674,56 @@ public class Semantico implements Constants, SemanticConstants {
         return TS.getUltimoId();
     }
 
-    private void insertTS(Token token, int tipoId) {
+    private void insertTSPF(Token token) {
         int tamanho = 1;
-        if (subCategoriaAtual == SUB_CAT_VETOR || tipoId == TIPO_CADEIA) {
+        Simbolo s = new Simbolo();
+        s.setLexeme(token.getLexeme());
+        s.setNivel(nivelAtual);
+        s.setDeslocamento(deslocamento);
+        s.setCategoria(CAT_PARAMETRO);
+        s.setTamanho(tamanho);
+        s.setTipo(tipoAtual);
+        s.setMpp(mpp);
+        s.setId(ID_PARAMETRO);
+        TS.inserirSimbolo(s);
+    }
+
+    private void insertTSVar(Token token) {
+        int tamanho = 1;
+        if (subCategoriaAtual == SUB_CAT_VETOR || tipoAtual == TIPO_CADEIA) {
             tamanho = numElementos;
         }
         Simbolo s = new Simbolo();
-        s.setToken(token);
+        s.setLexeme(token.getLexeme());
         s.setNivel(nivelAtual);
         s.setDeslocamento(deslocamento);
         s.setCategoria(categoriaAtual);
         s.setSubCategoria(subCategoriaAtual);
         s.setTamanho(tamanho);
-        s.setTipo(tipoId);
-        s.setMpp(mpp);
+        s.setTipo(tipoAtual);
+        s.setId(ID_VARIAVEL);
+        TS.inserirSimbolo(s);
+    }
+
+    private void insertTSProg(Token token) {
+        int tamanho = 1;
+        Simbolo s = new Simbolo();
+        s.setLexeme(token.getLexeme());
+        s.setTamanho(tamanho);
+        s.setId(ID_PROGRAMA);
+        TS.inserirSimbolo(s);
+    }
+
+    private void insertTSMet(Token token){
+        int tamanho = 1;
+        Simbolo s = new Simbolo();
+        s.setLexeme(token.getLexeme());
+        s.setNivel(nivelAtual);
+        s.setDeslocamento(deslocamento);
+        s.setCategoria(CAT_METODO);
+        s.setTamanho(tamanho);
+        s.setTipo(tipoAtual);
+        s.setId(ID_METODO);
         TS.inserirSimbolo(s);
     }
 }

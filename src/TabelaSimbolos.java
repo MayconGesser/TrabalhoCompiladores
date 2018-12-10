@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -55,11 +56,16 @@ public class TabelaSimbolos implements SemanticConstants {
     }
 
     public boolean verificaSeExisteEmMesmoNivel(Token t, int nivel) {
-        return filtrarPorNivel(nivel).stream().anyMatch(simbolo -> simbolo.getToken().getLexeme().equals(t.getLexeme()));
+        return filtrarPorNivel(nivel).stream().anyMatch(simbolo -> simbolo.getLexeme().equals(t.getLexeme()));
     }
 
     public int getPosicaoSimbolo(Token t, int nivel) {
-        return tabela.indexOf(retornaSimboloPorLexemaENivel(t, nivel));
+        Simbolo simbolo = retornaSimboloPorLexemaENivel(t, nivel);
+        while (simbolo == null && nivel > 0) {
+            nivel--;
+            simbolo = retornaSimboloPorLexemaENivel(t, nivel);
+        }
+        return tabela.indexOf(simbolo);
     }
 
     public boolean ehIdVetor(Token t, int nivel) {
@@ -76,7 +82,7 @@ public class TabelaSimbolos implements SemanticConstants {
 
     //https://stackoverflow.com/questions/27876260/finding-element-in-linkedlist-with-lambda
     public boolean existeID(Token t) {
-        return tabela.stream().anyMatch(simbolo -> simbolo.getToken().getLexeme().equals(t.getLexeme()));
+        return tabela.stream().anyMatch(simbolo -> simbolo.getLexeme().equals(t.getLexeme()));
     }
 
     public int getCategoriaSimbolo(Token t, int nivel) {
@@ -113,12 +119,15 @@ public class TabelaSimbolos implements SemanticConstants {
     private Simbolo retornaSimboloPorLexemaENivel(Token t, int nivel) {
         List<Simbolo> filtrada = filtrarPorNivel(nivel);
         Iterator<Simbolo> iterador = filtrada.iterator();
-        Simbolo retorno = iterador.next();
+        Simbolo retorno;
         //TODO: tratar pra/se nao achar
-        while (!(retorno.getToken().getLexeme().equals(t)) && iterador.hasNext()) {
+        while (iterador.hasNext()) {
             retorno = iterador.next();
+            if (!(retorno.getLexeme().equals(t.getLexeme()))) {
+                return retorno;
+            }
         }
-        return retorno;
+        return null;
     }
 
     //metodo generico pra nao precisar escrever o msm codigo sempre
@@ -145,7 +154,7 @@ public class TabelaSimbolos implements SemanticConstants {
         List<Simbolo> filtrada = filtrarPorNivel(nivel);
         Iterator<Simbolo> iterador = filtrada.iterator();
         Simbolo s = iterador.next();
-        while (!(s.getToken().getLexeme().equals(t.getLexeme()) && !(s.ehMetodo()) && iterador.hasNext())) {
+        while (!(s.getLexeme().equals(t.getLexeme()) && !(s.ehMetodo()) && iterador.hasNext())) {
             s = iterador.next();
         }
         return s;
@@ -155,7 +164,7 @@ public class TabelaSimbolos implements SemanticConstants {
         List<Simbolo> filtrada = filtrarPorNivel(nivel);
         Iterator<Simbolo> iterador = filtrada.iterator();
         Simbolo s = iterador.next();
-        while (!(s.getToken().getLexeme().equals(t.getLexeme()) && !(s.ehVetor()) && iterador.hasNext())) {
+        while (!(s.getLexeme().equals(t.getLexeme()) && !(s.ehVetor()) && iterador.hasNext())) {
             s = iterador.next();
         }
         return s;

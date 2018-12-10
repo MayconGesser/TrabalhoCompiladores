@@ -1,28 +1,21 @@
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class Simbolo implements SemanticConstants {
-    private int idSemantico;
-    private Token token;
-    private int nivel;
-    private int deslocamento;
-    private int categoria;
-    private int subCategoria;
-    private int tamanho;
-    private int tipo;
-    private int NPF;
-    private int posParamInicial;
-    private int posParamFinal;
-    private int mpp;
+    private int idSemantico = -1;
+    private String lexeme;
+    private int nivel = -1;
+    private int deslocamento = -1;
+    private int categoria = -1;
+    private int subCategoria = -1;
+    private int tamanho = -1;
+    private int tipo = -1;
+    private int NPF = -1;
+    private int posParamInicial = -1;
+    private int posParamFinal = -1;
+    private int mpp = -1;
+    private int id = -1;
 
     public Simbolo() {
-    }
-
-    public Token getToken() {
-        return token;
-    }
-
-    public void setToken(Token t) {
-        token = t;
     }
 
     public int getNivel() {
@@ -101,22 +94,6 @@ public class Simbolo implements SemanticConstants {
         return this.subCategoria == SUB_CAT_VETOR;
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (!(other instanceof Simbolo)) {
-            return false;
-        } else {
-            Simbolo outro = (Simbolo) other;
-            return (this.ehMesmoNivel(outro) &&
-                    this.ehMesmoDeslocamento(outro) &&
-                    this.ehMesmaCategoria(outro) &&
-                    this.subCategoria == outro.getSubCategoria() &&
-                    this.tamanho == outro.getTamanho() &&
-                    this.ehMesmoTipo(outro));
-        }
-
-    }
-
     public int getNPF() {
         return NPF;
     }
@@ -140,5 +117,36 @@ public class Simbolo implements SemanticConstants {
 
     public void setTamanho(int tamanho) {
         this.tamanho = tamanho;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public String getLexeme() {
+        return lexeme;
+    }
+
+    public void setLexeme(String lexeme) {
+        this.lexeme = lexeme;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lexeme, nivel);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Simbolo simbolo = (Simbolo) o;
+        return nivel == simbolo.nivel &&
+                Objects.equals(lexeme, simbolo.lexeme);
     }
 }
