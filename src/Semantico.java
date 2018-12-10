@@ -216,7 +216,7 @@ public class Semantico implements Constants, SemanticConstants {
             case 133:
                 int categoriaId = getCategoriaId();
                 if (categoriaId == CAT_VARIAVEL || categoriaId == CAT_CONSTANTE) {
-                    if (isIdVetor(token)) {
+                    if (isIdVetor()) {
                         throw new SemanticError("id deveria ser indexado", token.getPosition());
                     } else {
                         tipoLadoEsq = getTipoId(token);
@@ -233,13 +233,13 @@ public class Semantico implements Constants, SemanticConstants {
                 }
                 return;
             case 135:
-                if (getCategoriaId(token) != CAT_VARIAVEL) {
+                if (getCategoriaId() != CAT_VARIAVEL) {
                     throw new SemanticError("esperava-se uma variável", token.getPosition());
                 } else {
-                    if (getTipoId(token) != TIPO_CADEIA && !isIdVetor(token)) {
+                    if (getTipoId() != TIPO_CADEIA && !isIdVetor()) {
                         throw new SemanticError("Apenas vetores e cadeias podem ser indexados", token.getPosition());
                     } else {
-                        tipoVarIndexada = getTipoId(token);
+                        tipoVarIndexada = getTipoId();
                     }
                 }
                 return;
@@ -446,9 +446,9 @@ public class Semantico implements Constants, SemanticConstants {
                 return;
             case 174:
                 int categoria = getCategoriaId();
-                int tipo = getTipoId(token);
+                int tipo = getTipoId();
                 if (categoria == CAT_VARIAVEL || categoria == CAT_PARAMETRO) {
-                    if (isIdVetor(token)) {
+                    if (isIdVetor()) {
                         throw new SemanticError("Vetor deve ser indexado", token.getPosition());
                     } else {
                         tipoVar = tipo;
@@ -607,8 +607,8 @@ public class Semantico implements Constants, SemanticConstants {
         return TS.getCategoriaSimbolo(token, nivelAtual);
     }
 
-    private boolean isIdVetor(Token token) {
-        return TS.ehIdVetor(token, nivelAtual);
+    private boolean isIdVetor() {
+        return TS.ehIdVetor(posId);
     }
 
     private boolean metodoHasTipo() {

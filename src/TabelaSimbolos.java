@@ -72,8 +72,8 @@ public class TabelaSimbolos implements SemanticConstants {
         return simbolo;
     }
 
-    public boolean ehIdVetor(Token t, int nivel) {
-        return retornaSimboloPorLexemaENivel(t, nivel).ehVetor();
+    public boolean ehIdVetor(int posid) {
+        return tabela.get(posid).ehVetor();
     }
 
     public int getUltimoId() {
