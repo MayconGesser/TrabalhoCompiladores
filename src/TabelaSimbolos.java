@@ -1,5 +1,7 @@
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class TabelaSimbolos implements SemanticConstants{
@@ -34,13 +36,13 @@ public class TabelaSimbolos implements SemanticConstants{
 	//mesmo comportamento q getSimbolo, mas retira o simbolo da tabela
 	public Simbolo retirarSimbolo(int nivel, int deslocamento) {
 		Simbolo s = getSimbolo(nivel,deslocamento);
-		tabela.remove(s);
 		if(tabela.indexOf(s) == primeiroId && tabela.get(tabela.indexOf(s)+1) != null) {
 			++primeiroId;
 		}
 		else if(tabela.indexOf(s) == ultimoId && tabela.get(tabela.indexOf(s)-1) != null) {
 			--ultimoId;
 		}
+		tabela.remove(s);
 		return s;
 	}	
 	
@@ -53,8 +55,12 @@ public class TabelaSimbolos implements SemanticConstants{
 		return tabela.indexOf(s);
 	}
 	
-	public boolean ehIdVetor(Simbolo s) {
-		return retornaPonteiroPara(s).getToken().getId() == t_vetor;
+	public int getPosicaoSimbolo(Token t) {
+		return tabela.indexOf(retornaSimboloPorLexema(t));
+	}
+	
+	public boolean ehIdVetor(Token t, int nivel) {
+		return retornaSimboloPorLexemaENivel(t,nivel).ehVetor();
 	}
 	
 	public int getPrimeiroId() {
@@ -78,17 +84,37 @@ public class TabelaSimbolos implements SemanticConstants{
 		return retornaSimboloPorLexema(t).getCategoria();
 	}
 	
+	public int getIdSemanticoSimbolo(Token t) {
+		return retornaSimboloPorLexema(t).getIdSemantico();
+	}
+	
+	public int getTipoSimbolo(Token t) {
+		return retornaSimboloPorLexema(t).getTipo();
+	}
+	
+	public int getTipoMetodo(Token t, int nivel) {
+		Simbolo s = getSimboloMetodo(t,nivel);
+		return s.getTipo();		
+	}
+	
 	public void setTipoMetodo(Token t, int nivel, int tipo) {
-		Iterator<Simbolo> iterador = tabela.iterator();
-		Simbolo s = iterador.next();
-		while(!(s.getToken().getLexeme().equals(t.getLexeme()) && s.getNivel() != nivel && s.getIdSemantico() != ID_METODO && iterador.hasNext())) {
-			s = iterador.next();
-		}
+		Simbolo s = getSimboloMetodo(t, nivel);
 		s.setTipo(tipo);
 	}
 	
 	private Simbolo retornaSimboloPorLexema(Token t) {
 		Iterator<Simbolo> iterador = tabela.iterator();
+		Simbolo retorno = iterador.next();
+		//TODO: tratar pra/se nao achar
+		while(!(retorno.getToken().getLexeme().equals(t)) && iterador.hasNext()) {
+			retorno = iterador.next();
+		}
+		return retorno;
+	}
+	
+	private Simbolo retornaSimboloPorLexemaENivel(Token t, int nivel) {
+		List<Simbolo> filtrada = filtrarPorNivel(nivel);
+		Iterator<Simbolo> iterador = filtrada.iterator();
 		Simbolo retorno = iterador.next();
 		//TODO: tratar pra/se nao achar
 		while(!(retorno.getToken().getLexeme().equals(t)) && iterador.hasNext()) {
@@ -108,11 +134,26 @@ public class TabelaSimbolos implements SemanticConstants{
 	}
 	
 	private Simbolo retornaPonteiroPara(int nivel, int deslocamento) {
-		Iterator<Simbolo> iterador = tabela.iterator();
+		List<Simbolo> filtrada = filtrarPorNivel(nivel);
+		Iterator<Simbolo> iterador = filtrada.iterator();
 		Simbolo retorno = iterador.next();
-		while(retorno.getNivel() != nivel && retorno.getDeslocamento() != deslocamento && iterador.hasNext()) {
+		while(retorno.getDeslocamento() != deslocamento && iterador.hasNext()) {
 			retorno = iterador.next();
 		}
 		return retorno;
+	}
+	
+	private Simbolo getSimboloMetodo(Token t, int nivel) {
+		List<Simbolo> filtrada = filtrarPorNivel(nivel);
+		Iterator<Simbolo> iterador = filtrada.iterator();
+		Simbolo s = iterador.next();
+		while(!(s.getToken().getLexeme().equals(t.getLexeme()) && !(s.ehMetodo()) && iterador.hasNext())) {
+			s = iterador.next();
+		}
+		return s;
+	}
+	
+	private List<Simbolo> filtrarPorNivel(int nivel){
+		return tabela.stream().filter(simbolo -> simbolo.getNivel() == nivel).collect(Collectors.toList());
 	}
 }

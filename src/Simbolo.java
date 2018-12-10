@@ -117,6 +117,14 @@ public class Simbolo implements SemanticConstants{
 		return this.tipo == outro.getTipo();
 	}
 	
+	public boolean ehMetodo() {
+		return this.idSemantico == ID_METODO;
+	}
+	
+	public boolean ehVetor() {
+		return this.subCategoria == SUB_CAT_VETOR;
+	}
+	
 	@Override
 	public boolean equals(Object other) {
 		if(!(other instanceof Simbolo)) {
