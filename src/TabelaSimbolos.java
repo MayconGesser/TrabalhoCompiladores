@@ -12,9 +12,9 @@ public class TabelaSimbolos implements SemanticConstants {
     private int ultimoId;
 
     public TabelaSimbolos() {
-        tabela = new LinkedList<Simbolo>();
-        primeiroId = 0;
-        ultimoId = 0;
+        tabela = new LinkedList<>();
+        primeiroId = -1;
+        ultimoId = -1;
     }
 
     //TODO adicionar tratamento de excecao pra qdo nao encontrar o simbolo (precisa?)
@@ -60,12 +60,16 @@ public class TabelaSimbolos implements SemanticConstants {
     }
 
     public int getPosicaoSimbolo(Token t, int nivel) {
+        return tabela.indexOf(getSimboloMaiorNivel(t, nivel));
+    }
+
+    private Simbolo getSimboloMaiorNivel(Token t, int nivel) {
         Simbolo simbolo = retornaSimboloPorLexemaENivel(t, nivel);
         while (simbolo == null && nivel > 0) {
             nivel--;
             simbolo = retornaSimboloPorLexemaENivel(t, nivel);
         }
-        return tabela.indexOf(simbolo);
+        return simbolo;
     }
 
     public boolean ehIdVetor(Token t, int nivel) {
@@ -86,15 +90,20 @@ public class TabelaSimbolos implements SemanticConstants {
     }
 
     public int getCategoriaSimbolo(Token t, int nivel) {
-        return retornaSimboloPorLexemaENivel(t, nivel).getCategoria();
+        try {
+            return getSimboloMaiorNivel(t, nivel).getCategoria();
+        } catch (Exception e) {
+            System.out.println(t.getLexeme() + " " + nivel);
+            return -1;
+        }
     }
 
     public int getSubCategoriaSimbolo(Token token, int nivelAtual) {
-        return retornaSimboloPorLexemaENivel(token, nivelAtual).getSubCategoria();
+        return getSimboloMaiorNivel(token, nivelAtual).getSubCategoria();
     }
 
     public int getTipoSimbolo(Token t, int nivel) {
-        return retornaSimboloPorLexemaENivel(t, nivel).getTipo();
+        return getSimboloMaiorNivel(t, nivel).getTipo();
     }
 
     public int getTipoMetodo(int posMetodo) {
@@ -107,8 +116,9 @@ public class TabelaSimbolos implements SemanticConstants {
         s.setTipo(tipo);
     }
 
-    public int getTipoVetor(Token t, int nivel) {
-        return getSimboloVetor(t, nivel).getTipo();
+    public int getTipoVetor(int posid) {
+        Simbolo s = tabela.get(posid);
+        return s.getTipo();
     }
 
     private Simbolo retornaSimboloPorLexemaENivel(Token t, int nivel) {
@@ -145,26 +155,6 @@ public class TabelaSimbolos implements SemanticConstants {
             retorno = iterador.next();
         }
         return retorno;
-    }
-
-    private Simbolo getSimboloMetodo(Token t, int nivel) {
-        List<Simbolo> filtrada = filtrarPorNivel(nivel);
-        Iterator<Simbolo> iterador = filtrada.iterator();
-        Simbolo s = iterador.next();
-        while (!(s.getLexeme().equals(t.getLexeme()) && !(s.ehMetodo()) && iterador.hasNext())) {
-            s = iterador.next();
-        }
-        return s;
-    }
-
-    private Simbolo getSimboloVetor(Token t, int nivel) {
-        List<Simbolo> filtrada = filtrarPorNivel(nivel);
-        Iterator<Simbolo> iterador = filtrada.iterator();
-        Simbolo s = iterador.next();
-        while (!(s.getLexeme().equals(t.getLexeme()) && !(s.ehVetor()) && iterador.hasNext())) {
-            s = iterador.next();
-        }
-        return s;
     }
 
     private List<Simbolo> filtrarPorNivel(int nivel) {

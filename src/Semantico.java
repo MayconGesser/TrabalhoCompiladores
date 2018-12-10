@@ -125,6 +125,7 @@ public class Semantico implements Constants, SemanticConstants {
                 if (tipoConst != tipoAtual) {
                     throw new SemanticError("Tipo da constante incorreto", token.getPosition());
                 }
+                updateIds();
                 return;
             case 116:
                 categoriaAtual = CAT_VARIAVEL;
@@ -213,7 +214,7 @@ public class Semantico implements Constants, SemanticConstants {
                 }
                 return;
             case 133:
-                int categoriaId = getCategoriaId(token);
+                int categoriaId = getCategoriaId();
                 if (categoriaId == CAT_VARIAVEL || categoriaId == CAT_CONSTANTE) {
                     if (isIdVetor(token)) {
                         throw new SemanticError("id deveria ser indexado", token.getPosition());
@@ -440,11 +441,11 @@ public class Semantico implements Constants, SemanticConstants {
                 } else if (tipoVarIndexada == TIPO_CADEIA) {
                     tipoVar = TIPO_CARACTER;
                 } else {
-                    tipoVar = getTipoVetor(token);
+                    tipoVar = getTipoVetor();
                 }
                 return;
             case 174:
-                int categoria = getCategoriaId(token);
+                int categoria = getCategoriaId();
                 int tipo = getTipoId(token);
                 if (categoria == CAT_VARIAVEL || categoria == CAT_PARAMETRO) {
                     if (isIdVetor(token)) {
@@ -521,8 +522,8 @@ public class Semantico implements Constants, SemanticConstants {
         return -1;
     }
 
-    private int getTipoVetor(Token token) {
-        return TS.getTipoVetor(token, nivelAtual);
+    private int getTipoVetor() {
+        return TS.getTipoVetor(posId);
     }
 
     private int getTipoMetodo() {
@@ -631,7 +632,7 @@ public class Semantico implements Constants, SemanticConstants {
         int primeiro = primeiroIdLista;
         int ultimo = ultimoIdLista;
         int deslocamentoLocal = 0;
-        while (primeiro < ultimo) {
+        while (primeiro <= ultimo) {
             Simbolo ID = TS.getSimbolo(primeiro);
             TS.atualizarSimbolo(ID, categoriaAtual, subCategoriaAtual, deslocamentoLocal);
             primeiro++;
