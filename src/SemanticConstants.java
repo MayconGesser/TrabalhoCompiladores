@@ -1,5 +1,5 @@
 
-public interface SemanticConstants {
+public interface SemanticConstants extends Constants{
 	final int ID_PROGRAMA = 1;
 	final int ID_CONSTANTE = 2;
 	final int ID_VARIAVEL = 3;

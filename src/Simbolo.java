@@ -1,12 +1,14 @@
 
 public class Simbolo implements SemanticConstants{
+	private Token token; 
 	private int nivel; 
 	private int deslocamento; 
 	private int categoria; 
 	private int subCategoria; 
 	private int tamanho;
 	
-	public Simbolo(int nivel, int deslocamento, int categoria, int subCategoria, int tamanho) {
+	public Simbolo(Token token, int nivel, int deslocamento, int categoria, int subCategoria, int tamanho) {
+		this.token = token; 
 		this.nivel = nivel; 
 		this.deslocamento = deslocamento; 
 		this.categoria = categoria; 
@@ -14,8 +16,20 @@ public class Simbolo implements SemanticConstants{
 		this.tamanho = tamanho; 
 	}
 		
+	public Token getToken() {
+		return token;
+	}
+	
+	public void setToken(Token t) {
+		token = t; 
+	}
+	
 	public int getNivel() {
 		return nivel; 
+	}
+	
+	public void setNivel(int nivel) {
+		this.nivel = nivel; 
 	}
 	
 	public int getDeslocamento() {
@@ -44,6 +58,18 @@ public class Simbolo implements SemanticConstants{
 	
 	public int getTamanho() {
 		return tamanho;
+	}
+	
+	public boolean ehMesmaCategoria(Simbolo outro) {
+		return this.categoria == outro.getCategoria();
+	}
+	
+	public boolean ehMesmoNivel(Simbolo outro) {
+		return this.nivel == outro.getNivel();
+	}
+	
+	public boolean ehMesmoDeslocamento(Simbolo outro) {
+		return this.deslocamento == outro.getDeslocamento();
 	}
 	
 	@Override

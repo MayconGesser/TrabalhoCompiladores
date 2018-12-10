@@ -43,13 +43,26 @@ public class TabelaSimbolos implements SemanticConstants{
 	//mesmo comportamento q getSimbolo, mas retira o simbolo da tabela
 	public Simbolo retirarSimbolo(int nivel, int deslocamento) {
 		Simbolo s = getSimbolo(nivel,deslocamento);
-		if(tabela.indexOf(s) == primeiroId) {
+		if(tabela.indexOf(s) == primeiroId && tabela.get(tabela.indexOf(s)+1) != null) {
 			++primeiroId;
 		}
-		else if(tabela.indexOf(s) == ultimoId) {
+		else if(tabela.indexOf(s) == ultimoId && tabela.get(tabela.indexOf(s)-1) != null) {
 			--ultimoId;
 		}
 		return s;
+	}	
+	
+	public boolean verificaSeExisteEmMesmoNivel(Simbolo s) {
+		Simbolo ret = retornaSimboloPorLexema(s.getToken());
+		return s.getNivel() == ret.getNivel();
+	}
+	
+	public int getPosicaoSimbolo(Simbolo s) {
+		return tabela.indexOf(s);
+	}
+	
+	public boolean ehIdVetor(Simbolo s) {
+		return retornaPonteiroPara(s).getToken().getId() == t_vetor;
 	}
 	
 	public int getPrimeiroId() {
@@ -62,5 +75,34 @@ public class TabelaSimbolos implements SemanticConstants{
 	
 	public void limparTabela() {
 		tabela.clear();
+	}
+	
+	//https://stackoverflow.com/questions/27876260/finding-element-in-linkedlist-with-lambda
+	public boolean existeID(Token t) {
+		return tabela.stream().anyMatch(simbolo -> simbolo.getToken().getLexeme().equals(t.getLexeme()));
+	}
+	
+	public int getCategoriaSimbolo(Token t) {
+		return retornaSimboloPorLexema(t).getCategoria();
+	}
+	
+	private Simbolo retornaSimboloPorLexema(Token t) {
+		Iterator<Simbolo> iterador = tabela.iterator();
+		Simbolo retorno = iterador.next();
+		//TODO: tratar pra/se nao achar
+		while(!(retorno.getToken().getLexeme().equals(t)) && iterador.hasNext()) {
+			retorno = iterador.next();
+		}
+		return retorno;
+	}
+	
+	//metodo generico pra nao precisar escrever o msm codigo sempre
+	private Simbolo retornaPonteiroPara(Simbolo s) {
+		Iterator<Simbolo> iterador = tabela.iterator();
+		Simbolo retorno = iterador.next();
+		while(!(retorno.equals(s)) && iterador.hasNext()) {
+			retorno = iterador.next();
+		}
+		return retorno;
 	}
 }

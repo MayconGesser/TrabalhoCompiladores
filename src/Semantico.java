@@ -586,12 +586,13 @@ public class Semantico implements Constants, SemanticConstants {
 
     private int getCategoriaId(Token token) {
         //TODO retorna categoria do Id
-        return -1;
+        return TS.getCategoriaSimbolo(token);
     }
 
     private boolean isIdVetor(Token token) {
         //TODO verifica se o id eh vetor ou nao
-        return false;
+    	Simbolo s = constroiSimbolo(token,nivelAtual,deslocamento,categoriaAtual,subCategoriaAtual,0);
+        return TS.ehIdVetor(s);
     }
 
     private boolean metodoHasTipo() {
@@ -601,7 +602,8 @@ public class Semantico implements Constants, SemanticConstants {
 
     private int findPosicaoId(Token token) {
         //TODO retorna a posicao na tabela do id especifico
-        return -1;
+    	Simbolo s = new Simbolo(token, nivelAtual, deslocamento, categoriaAtual, subCategoriaAtual, 0);
+    	return TS.getPosicaoSimbolo(s);
     }
 
     private void setTipoMetodo() {
@@ -616,6 +618,11 @@ public class Semantico implements Constants, SemanticConstants {
 
     private void removeVarsTS() {
         //TODO remove as variaveis declaradas localmente, as do nivel atual
+    	int d = deslocamento; 
+    	while(d > 0) {
+    		TS.retirarSimbolo(nivelAtual, d);
+    		--d;
+    	}
     }
 
     private void updateTipoMetodo() {
@@ -628,7 +635,8 @@ public class Semantico implements Constants, SemanticConstants {
 
     private boolean doesIdExistsOnThatLevel(Token token) {
         //TODO verifica se o id jah existe no nivel atual
-        return false;
+    	Simbolo s = constroiSimbolo(token, nivelAtual, deslocamento, categoriaAtual, subCategoriaAtual, 0);
+    	return TS.verificaSeExisteEmMesmoNivel(s);
     }
 
     private boolean isTipoInvalidToRead() {
@@ -643,7 +651,7 @@ public class Semantico implements Constants, SemanticConstants {
 
     private boolean doesIdExists(Token token) {
         //TODO verificar se id jah foi declarado
-        return false;
+        return TS.existeID(token);
     }
 
     private void updateIds() {
@@ -662,11 +670,17 @@ public class Semantico implements Constants, SemanticConstants {
 
     private int getUltimoIdTS() {
         //TODO retorna a posicao do ultimo id da TS
-        return -1;
+        return TS.getUltimoId();
     }
 
     private void insertTS(Token token, int tipoId) {
-        //TODO inserir na tabela de simbolos
-        //TODO nao esquecer de nivelAtual, categoria etc...
+    	//TODO: fazer o tamanho
+        Simbolo s = new Simbolo(token, nivelAtual, deslocamento, categoriaAtual, subCategoriaAtual, 0);
+        TS.inserirSimbolo(s);
+    }
+    
+    private Simbolo constroiSimbolo(Token t, int nivel, int deslocamento, int categoria, int subCategoria, int tamanho) {
+    	Simbolo s = new Simbolo(t, nivelAtual, deslocamento, categoriaAtual, subCategoriaAtual, tamanho);
+    	return s;
     }
 }
