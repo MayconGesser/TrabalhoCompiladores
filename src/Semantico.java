@@ -26,7 +26,6 @@ public class Semantico implements Constants, SemanticConstants {
     private boolean opNega = false;
     private boolean opUnario = false;
     private int tipoVar = -1;
-    private int posMetodoAtual = -1;
 
     private TabelaSimbolos TS = new TabelaSimbolos();
 
@@ -136,7 +135,7 @@ public class Semantico implements Constants, SemanticConstants {
                 } else {
                     categoriaAtual = CAT_METODO;
                     insertTSMet(token);
-                    posMetodoAtual = getUltimoIdTS();
+                    posId = getUltimoIdTS();
                     numParamFormais = 0;
                     nivelAtual++;
                 }
@@ -420,7 +419,7 @@ public class Semantico implements Constants, SemanticConstants {
             case 171:
                 if (getCategoriaId() != CAT_METODO) {
                     throw new SemanticError("id deveria ser um método", token.getPosition());
-                } else if (getTipoId(token) != TIPO_NULO) {
+                } else if (getTipoId() == TIPO_NULO) {
                     throw new SemanticError("esperava-se método com tipo", token.getPosition());
                 } else {
                     numParamAtuais = 0;
@@ -502,6 +501,10 @@ public class Semantico implements Constants, SemanticConstants {
                 throw new SemanticError("Erro nao identificado - acao semantica nao identificada -", token.getPosition());
         }
 
+    }
+
+    private int getTipoId() {
+        return TS.getTipoMetodo(posId);
     }
 
     private int getCategoriaId() {
@@ -608,7 +611,7 @@ public class Semantico implements Constants, SemanticConstants {
     }
 
     private boolean metodoHasTipo() {
-        return TS.getTipoMetodo(posMetodoAtual) != TIPO_NULO;
+        return TS.getTipoMetodo(posId) != TIPO_NULO;
     }
 
     private int findPosicaoId(Token token) {
@@ -620,8 +623,8 @@ public class Semantico implements Constants, SemanticConstants {
     }
 
     private void updateNPF() {
-        TS.updateMetodo(posMetodoAtual, numParamFormais);
-        TS.updatePFsMetodo(posMetodoAtual, primeiroIdLista, ultimoIdLista);
+        TS.updateMetodo(posId, numParamFormais);
+        TS.updatePFsMetodo(posId, primeiroIdLista, ultimoIdLista);
     }
 
     private void updateIds() {
@@ -645,7 +648,7 @@ public class Semantico implements Constants, SemanticConstants {
     }
 
     private void updateTipoMetodo(int tipo) {
-        TS.setTipoMetodo(posMetodoAtual, tipo);
+        TS.setTipoMetodo(posId, tipo);
     }
 
     private boolean doesIdExistsOnThatLevel(Token token) {
@@ -714,7 +717,7 @@ public class Semantico implements Constants, SemanticConstants {
         TS.inserirSimbolo(s);
     }
 
-    private void insertTSMet(Token token){
+    private void insertTSMet(Token token) {
         int tamanho = 1;
         Simbolo s = new Simbolo();
         s.setLexeme(token.getLexeme());

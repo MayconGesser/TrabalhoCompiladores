@@ -97,11 +97,6 @@ public class TabelaSimbolos implements SemanticConstants {
         return retornaSimboloPorLexemaENivel(t, nivel).getTipo();
     }
 
-    public int getTipoMetodo(Token t, int nivel) {
-        Simbolo s = getSimboloMetodo(t, nivel);
-        return s.getTipo();
-    }
-
     public int getTipoMetodo(int posMetodo) {
         Simbolo s = tabela.get(posMetodo);
         return s.getTipo();
@@ -117,13 +112,15 @@ public class TabelaSimbolos implements SemanticConstants {
     }
 
     private Simbolo retornaSimboloPorLexemaENivel(Token t, int nivel) {
-        List<Simbolo> filtrada = filtrarPorNivel(nivel);
-        Iterator<Simbolo> iterador = filtrada.iterator();
+        Simbolo simbolo = new Simbolo();
+        simbolo.setLexeme(t.getLexeme());
+        simbolo.setNivel(nivel);
+
+        Iterator<Simbolo> iterador = tabela.iterator();
         Simbolo retorno;
-        //TODO: tratar pra/se nao achar
         while (iterador.hasNext()) {
             retorno = iterador.next();
-            if (!(retorno.getLexeme().equals(t.getLexeme()))) {
+            if (retorno.equals(simbolo)) {
                 return retorno;
             }
         }
