@@ -437,7 +437,7 @@ public class Semantico implements Constants, SemanticConstants {
                 } else if (tipoVarIndexada == TIPO_CADEIA) {
                     tipoVar = TIPO_CARACTER;
                 } else {
-                    tipoVar = getTipoVetor();
+                    tipoVar = getTipoVetor(token, nivelAtual);
                 }
                 return;
             case 174:
@@ -511,9 +511,9 @@ public class Semantico implements Constants, SemanticConstants {
         return -1;
     }
 
-    private int getTipoVetor() {
+    private int getTipoVetor(Token token, int nivel) {
         //TODO pegar tipo do vetor
-        return -1;
+        return TS.getTipoVetor(token, nivel);
     }
 
     private int getTipoMetodo(Token t, int nivel) {
@@ -635,8 +635,7 @@ public class Semantico implements Constants, SemanticConstants {
 
     private boolean doesIdExistsOnThatLevel(Token token) {
         //TODO verifica se o id jah existe no nivel atual
-    	Simbolo s = constroiSimbolo(token, nivelAtual, deslocamento, categoriaAtual, subCategoriaAtual, 0);
-    	return TS.verificaSeExisteEmMesmoNivel(s);
+    	return TS.verificaSeExisteEmMesmoNivel(token, nivelAtual);
     }
 
     private boolean isTipoInvalidToRead() {

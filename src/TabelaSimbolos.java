@@ -46,9 +46,8 @@ public class TabelaSimbolos implements SemanticConstants{
 		return s;
 	}	
 	
-	public boolean verificaSeExisteEmMesmoNivel(Simbolo s) {
-		Simbolo ret = retornaSimboloPorLexema(s.getToken());
-		return s.ehMesmoNivel(ret);
+	public boolean verificaSeExisteEmMesmoNivel(Token t, int nivel) {
+		return filtrarPorNivel(nivel).stream().anyMatch(simbolo -> simbolo.getToken().getLexeme().equals(t.getLexeme()));
 	}
 	
 	public int getPosicaoSimbolo(Simbolo s) {
@@ -102,6 +101,10 @@ public class TabelaSimbolos implements SemanticConstants{
 		s.setTipo(tipo);
 	}
 	
+	public int getTipoVetor(Token t, int nivel) {
+		return getSimboloVetor(t, nivel).getTipo();
+	}
+	
 	private Simbolo retornaSimboloPorLexema(Token t) {
 		Iterator<Simbolo> iterador = tabela.iterator();
 		Simbolo retorno = iterador.next();
@@ -151,6 +154,16 @@ public class TabelaSimbolos implements SemanticConstants{
 			s = iterador.next();
 		}
 		return s;
+	}
+	
+	private Simbolo getSimboloVetor(Token t, int nivel) {
+		List<Simbolo> filtrada = filtrarPorNivel(nivel);
+		Iterator<Simbolo> iterador = filtrada.iterator();
+		Simbolo s = iterador.next();
+		while(!(s.getToken().getLexeme().equals(t.getLexeme()) && !(s.ehVetor()) && iterador.hasNext())) {
+			s = iterador.next();
+		}
+		return s;		
 	}
 	
 	private List<Simbolo> filtrarPorNivel(int nivel){
