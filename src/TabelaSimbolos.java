@@ -10,6 +10,8 @@ public class TabelaSimbolos implements SemanticConstants{
 	
 	public TabelaSimbolos() {
 		tabela = new LinkedList<Simbolo>();
+		primeiroId = 0; 
+		ultimoId = 0; 
 	}
 	
 	//TODO adicionar tratamento de excecao pra qdo nao encontrar o simbolo (precisa?)
@@ -33,11 +35,32 @@ public class TabelaSimbolos implements SemanticConstants{
 		ss.setDeslocamento(deslocamento);
 	}
 	
+	public void inserirSimbolo(Simbolo s) {
+		tabela.add(s);
+		ultimoId = tabela.indexOf(s);
+	}
+	
+	//mesmo comportamento q getSimbolo, mas retira o simbolo da tabela
+	public Simbolo retirarSimbolo(int nivel, int deslocamento) {
+		Simbolo s = getSimbolo(nivel,deslocamento);
+		if(tabela.indexOf(s) == primeiroId) {
+			++primeiroId;
+		}
+		else if(tabela.indexOf(s) == ultimoId) {
+			--ultimoId;
+		}
+		return s;
+	}
+	
 	public int getPrimeiroId() {
 		return primeiroId; 
 	}
 	
 	public int getUltimoId() {
 		return ultimoId;
+	}
+	
+	public void limparTabela() {
+		tabela.clear();
 	}
 }
