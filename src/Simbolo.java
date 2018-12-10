@@ -8,9 +8,8 @@ public class Simbolo implements SemanticConstants{
 	private int subCategoria; 
 	private int tamanho;
 	private int tipo;
-	
-	//TODO: refatorar essa bagunça...
-	
+	private int NPF;
+
 	public Simbolo(Token token, int nivel, int deslocamento, int categoria, int subCategoria, int tamanho) {
 		this.token = token; 
 		this.nivel = nivel; 
@@ -140,5 +139,13 @@ public class Simbolo implements SemanticConstants{
 					 this.ehMesmoTipo(outro));
 		}
 		
+	}
+
+	public int getNPF() {
+		return NPF;
+	}
+
+	public void setNPF(int NPF) {
+		this.NPF = NPF;
 	}
 }

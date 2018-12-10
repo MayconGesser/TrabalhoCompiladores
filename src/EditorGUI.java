@@ -418,12 +418,13 @@ public class EditorGUI extends JFrame implements ActionListener {
             analiseLexica();
         } else if (event.getSource() == analisarSintatica) {
             analiseSintatica();
-        } else if (event.getSource() == analisadorSemantico) {
+        } else if (event.getSource() == analisarSemantica) {
             analiseSemantica();
         }
     }
 
     private void analiseSemantica() {
+        resetAnalisadores();
         analisadorLexico.setInput(new StringReader(textArea.getText()));
         try {
             analisadorSintatico.parse(analisadorLexico, analisadorSemantico);
@@ -435,6 +436,7 @@ public class EditorGUI extends JFrame implements ActionListener {
     }
 
     private void analiseSintatica() {
+        resetAnalisadores();
         analisadorLexico.setInput(new StringReader(textArea.getText()));
         try {
             analisadorSintatico.parse(analisadorLexico, null);
@@ -446,6 +448,7 @@ public class EditorGUI extends JFrame implements ActionListener {
     }
 
     public void analiseLexica() {
+        resetAnalisadores();
         String textoFonte = textArea.getText();
         analisadorLexico.setInput(new StringReader(textoFonte));
         try {
@@ -458,5 +461,11 @@ public class EditorGUI extends JFrame implements ActionListener {
             textArea.select(lexicalError.getPosition(), lexicalError.getPosition() + 1);
             JOptionPane.showMessageDialog(editorWindow, lexicalError.getMessage());
         }
+    }
+
+    private void resetAnalisadores() {
+        analisadorLexico = new Lexico();
+        analisadorSintatico = new Sintatico();
+        analisadorSemantico = new Semantico();
     }
 }
