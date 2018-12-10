@@ -21,6 +21,10 @@ public class TabelaSimbolos implements SemanticConstants {
         return retornaPonteiroPara(nivel, deslocamento);
     }
 
+    public Simbolo getSimbolo(int pos) {
+        return tabela.get(pos);
+    }
+
     public void atualizarSimbolo(Simbolo s, int categoria, int subCategoria, int deslocamento) {
         Simbolo ss = retornaPonteiroPara(s);
         ss.setCategoria(categoria);
@@ -39,7 +43,7 @@ public class TabelaSimbolos implements SemanticConstants {
     }
 
     //mesmo comportamento q getSimbolo, mas retira o simbolo da tabela
-    public Simbolo retirarSimbolo(int nivel, int deslocamento) {
+    public Simbolo retirarSimbolo(int nivel, int deslocamento) { //TODO VER ISSO AQUI
         Simbolo s = getSimbolo(nivel, deslocamento);
         if (tabela.indexOf(s) == primeiroId && tabela.get(tabela.indexOf(s) + 1) != null) {
             ++primeiroId;
@@ -161,4 +165,18 @@ public class TabelaSimbolos implements SemanticConstants {
         return tabela.stream().filter(simbolo -> simbolo.getNivel() == nivel).collect(Collectors.toList());
     }
 
+    public void updatePFsMetodo(int posMetodoAtual, int primeiroIdLista, int ultimoIdLista) {
+        Simbolo s = tabela.get(posMetodoAtual);
+        s.setParams(primeiroIdLista, ultimoIdLista);
+    }
+
+    public void updateParam(int ultimoIdLista, int tipoAtual) {
+        Simbolo s = tabela.get(ultimoIdLista);
+        s.setTipo(tipoAtual);
+    }
+
+    public int getCategoriaSimbolo(int posId) {
+        Simbolo s = tabela.get(posId);
+        return s.getCategoria();
+    }
 }

@@ -7,9 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="271d0e56-3bee-4dbb-969e-04155f9288ca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/bin/Semantico.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EditorGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EditorGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SemanticConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SemanticConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Semantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Semantico.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Simbolo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Simbolo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TabelaSimbolos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TabelaSimbolos.java" afterDir="false" />
@@ -26,9 +23,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Semantico.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="687" column="34" selection-start-line="687" selection-start-column="34" selection-end-line="687" selection-end-column="34" />
+            <state relative-caret-position="415">
+              <caret line="274" column="35" selection-start-line="274" selection-start-column="35" selection-end-line="274" selection-end-column="35" />
               <folding>
+                <element signature="e#20464#20465#0" expanded="true" />
+                <element signature="e#20503#20504#0" expanded="true" />
+                <element signature="e#20945#20946#0" expanded="true" />
+                <element signature="e#20997#20998#0" expanded="true" />
+                <element signature="e#21050#21051#0" expanded="true" />
+                <element signature="e#21099#21100#0" expanded="true" />
                 <element signature="e#24034#24035#0" expanded="true" />
                 <element signature="e#24081#24082#0" expanded="true" />
                 <element signature="e#24128#24129#0" expanded="true" />
@@ -39,10 +42,10 @@
                 <element signature="e#24398#24399#0" expanded="true" />
                 <element signature="e#24444#24445#0" expanded="true" />
                 <element signature="e#24494#24495#0" expanded="true" />
+                <element signature="e#24054#24055#0" expanded="true" />
+                <element signature="e#24110#24111#0" expanded="true" />
                 <element signature="e#24625#24626#0" expanded="true" />
                 <element signature="e#24673#24674#0" expanded="true" />
-                <element signature="e#24895#24896#0" expanded="true" />
-                <element signature="e#24959#24960#0" expanded="true" />
                 <element signature="e#25154#25155#0" expanded="true" />
                 <element signature="e#25227#25228#0" expanded="true" />
                 <element signature="e#25331#25332#0" expanded="true" />
@@ -59,10 +62,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TabelaSimbolos.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="32" column="34" lean-forward="true" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+            <state relative-caret-position="450">
+              <caret line="156" column="36" selection-start-line="156" selection-start-column="36" selection-end-line="156" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#550#551#0" expanded="true" />
+                <element signature="e#613#614#0" expanded="true" />
+                <element signature="e#693#694#0" expanded="true" />
                 <element signature="e#1814#1815#0" expanded="true" />
                 <element signature="e#1879#1880#0" expanded="true" />
                 <element signature="e#2710#2711#0" expanded="true" />
@@ -73,26 +79,17 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/SemanticConstants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Simbolo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="135">
+              <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
               <folding>
-                <element signature="e#2698#2699#0" expanded="true" />
-                <element signature="e#2746#2747#0" expanded="true" />
-                <element signature="e#3202#3203#0" expanded="true" />
-                <element signature="e#3219#3220#0" expanded="true" />
-                <element signature="e#3251#3252#0" expanded="true" />
-                <element signature="e#3272#3273#0" expanded="true" />
+                <element signature="e#2948#2949#0" expanded="true" />
+                <element signature="e#2974#2975#0" expanded="true" />
+                <element signature="e#3009#3010#0" expanded="true" />
+                <element signature="e#3039#3040#0" expanded="true" />
+                <element signature="e#3082#3083#0" expanded="true" />
+                <element signature="e#3120#3121#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -127,6 +124,8 @@
       <find>operandos</find>
       <find>operandos inco</find>
       <find>does</find>
+      <find>id dever</find>
+      <find>deveria</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -141,8 +140,8 @@
         <option value="$PROJECT_DIR$/src/TipoId.java" />
         <option value="$PROJECT_DIR$/src/EditorGUI.java" />
         <option value="$PROJECT_DIR$/src/SemanticConstants.java" />
-        <option value="$PROJECT_DIR$/src/TabelaSimbolos.java" />
         <option value="$PROJECT_DIR$/src/Simbolo.java" />
+        <option value="$PROJECT_DIR$/src/TabelaSimbolos.java" />
         <option value="$PROJECT_DIR$/src/Semantico.java" />
       </list>
     </option>
@@ -180,7 +179,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544465473547" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544468591950" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -248,7 +247,16 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32987000" />
+    <option name="totallyTimeSpent" value="36104000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="0" width="1920" height="1080" extended-state="6" />
@@ -263,11 +271,11 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3290735" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.399361" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3290735" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.399361" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3290735" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
@@ -293,7 +301,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Semantico.java</url>
-          <line>587</line>
+          <line>588</line>
           <properties />
           <option name="timeStamp" value="15" />
         </line-breakpoint>
@@ -386,6 +394,12 @@
           <line>462</line>
           <properties />
           <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Semantico.java</url>
+          <line>684</line>
+          <properties />
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -511,25 +525,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Simbolo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="135">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
           <folding>
-            <element signature="e#2698#2699#0" expanded="true" />
-            <element signature="e#2746#2747#0" expanded="true" />
-            <element signature="e#3202#3203#0" expanded="true" />
-            <element signature="e#3219#3220#0" expanded="true" />
-            <element signature="e#3251#3252#0" expanded="true" />
-            <element signature="e#3272#3273#0" expanded="true" />
+            <element signature="e#2948#2949#0" expanded="true" />
+            <element signature="e#2974#2975#0" expanded="true" />
+            <element signature="e#3009#3010#0" expanded="true" />
+            <element signature="e#3039#3040#0" expanded="true" />
+            <element signature="e#3082#3083#0" expanded="true" />
+            <element signature="e#3120#3121#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TabelaSimbolos.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="32" column="34" lean-forward="true" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+        <state relative-caret-position="450">
+          <caret line="156" column="36" selection-start-line="156" selection-start-column="36" selection-end-line="156" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#550#551#0" expanded="true" />
+            <element signature="e#613#614#0" expanded="true" />
+            <element signature="e#693#694#0" expanded="true" />
             <element signature="e#1814#1815#0" expanded="true" />
             <element signature="e#1879#1880#0" expanded="true" />
             <element signature="e#2710#2711#0" expanded="true" />
@@ -540,9 +557,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Semantico.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="687" column="34" selection-start-line="687" selection-start-column="34" selection-end-line="687" selection-end-column="34" />
+        <state relative-caret-position="415">
+          <caret line="274" column="35" selection-start-line="274" selection-start-column="35" selection-end-line="274" selection-end-column="35" />
           <folding>
+            <element signature="e#20464#20465#0" expanded="true" />
+            <element signature="e#20503#20504#0" expanded="true" />
+            <element signature="e#20945#20946#0" expanded="true" />
+            <element signature="e#20997#20998#0" expanded="true" />
+            <element signature="e#21050#21051#0" expanded="true" />
+            <element signature="e#21099#21100#0" expanded="true" />
             <element signature="e#24034#24035#0" expanded="true" />
             <element signature="e#24081#24082#0" expanded="true" />
             <element signature="e#24128#24129#0" expanded="true" />
@@ -553,10 +576,10 @@
             <element signature="e#24398#24399#0" expanded="true" />
             <element signature="e#24444#24445#0" expanded="true" />
             <element signature="e#24494#24495#0" expanded="true" />
+            <element signature="e#24054#24055#0" expanded="true" />
+            <element signature="e#24110#24111#0" expanded="true" />
             <element signature="e#24625#24626#0" expanded="true" />
             <element signature="e#24673#24674#0" expanded="true" />
-            <element signature="e#24895#24896#0" expanded="true" />
-            <element signature="e#24959#24960#0" expanded="true" />
             <element signature="e#25154#25155#0" expanded="true" />
             <element signature="e#25227#25228#0" expanded="true" />
             <element signature="e#25331#25332#0" expanded="true" />

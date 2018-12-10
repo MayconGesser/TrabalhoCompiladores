@@ -162,7 +162,7 @@ public class Semantico implements Constants, SemanticConstants {
                 if (tipoAtual == -1) {
                     throw new SemanticError("Parametros devem ser de tipo pré-definido", token.getPosition());
                 } else {
-                    updatePFs();
+                    updatePF();
                 }
                 resetAtrs();
                 return;
@@ -254,7 +254,7 @@ public class Semantico implements Constants, SemanticConstants {
                 }
                 return;
             case 137:
-                if (getCategoriaId(token) != CAT_METODO) {
+                if (getCategoriaId() != CAT_METODO) {
                     throw new SemanticError("id deveria ser um método", token.getPosition());
                 } else if (tipoMetAtual != TIPO_NULO) {
                     throw new SemanticError("Esperava-se método sem tipo", token.getPosition());
@@ -268,18 +268,18 @@ public class Semantico implements Constants, SemanticConstants {
                 if (numParamFormais != numParamAtuais) {
                     throw new SemanticError("erro na quantidade de parâmetros", token.getPosition());
                 } else {
-                    //TODO geracao de codigo para chamada de procedimento
+                    //ger cod
                 }
                 return;
             case 140:
-                if (getCategoriaId(token) != CAT_METODO) {
+                if (getCategoriaId() != CAT_METODO) {
                     throw new SemanticError("id deveria ser um método", token.getPosition());
                 } else if (tipoMetAtual != TIPO_NULO) {
                     throw new SemanticError("esperava-se método sem tipo", token.getPosition());
                 } else if (numParamFormais != 0) {
                     throw new SemanticError("erro na quantidade de parametros", token.getPosition());
                 } else {
-                    //TODO geracao de codigo para chamada de metodo
+                    //ger cod
                 }
                 return;
             case 141:
@@ -292,7 +292,7 @@ public class Semantico implements Constants, SemanticConstants {
                     if (tipoExpr == TIPO_BOOLEANO) {
                         throw new SemanticError("tipo invalido para impressão", token.getPosition());
                     } else {
-                        //TODO gera cod pra impressao
+                        //ger cod
                     }
                 }
                 return;
@@ -419,7 +419,7 @@ public class Semantico implements Constants, SemanticConstants {
                 tipoFator = tipoConst;
                 return;
             case 171:
-                if (getCategoriaId(token) != CAT_METODO) {
+                if (getCategoriaId() != CAT_METODO) {
                     throw new SemanticError("id deveria ser um método", token.getPosition());
                 } else if (getTipoId(token) != TIPO_NULO) {
                     throw new SemanticError("esperava-se método com tipo", token.getPosition());
@@ -430,7 +430,7 @@ public class Semantico implements Constants, SemanticConstants {
                 return;
             case 172:
                 if (numParamAtuais == numParamFormais) {
-                    tipoVar = getTipoMetodo(token, nivelAtual);
+                    tipoVar = getTipoMetodo();
                     //ger cod
                 } else {
                     throw new SemanticError("Erro na quantidade de parametros", token.getPosition());
@@ -442,7 +442,7 @@ public class Semantico implements Constants, SemanticConstants {
                 } else if (tipoVarIndexada == TIPO_CADEIA) {
                     tipoVar = TIPO_CARACTER;
                 } else {
-                    tipoVar = getTipoVetor(token, nivelAtual);
+                    tipoVar = getTipoVetor(token);
                 }
                 return;
             case 174:
@@ -481,28 +481,32 @@ public class Semantico implements Constants, SemanticConstants {
                 return;
             case 176:
                 tipoConst = TIPO_INTEIRO;
-                valConst = getValor();
+                valConst = getValor(token);
                 return;
             case 177:
                 tipoConst = TIPO_REAL;
-                valConst = getValor();
+//                valConst = getValor(token);
                 return;
             case 178:
                 tipoConst = TIPO_BOOLEANO;
-                valConst = getValor();
+//                valConst = getValor(token);
                 return;
             case 179:
                 tipoConst = TIPO_BOOLEANO;
-                valConst = getValor();
+//                valConst = getValor(token);
                 return;
             case 180:
                 tipoConst = TIPO_CADEIA;
-                valConst = getValor();
+//                valConst = getValor(token);
                 return;
             default:
                 throw new SemanticError("Erro nao identificado - acao semantica nao identificada -", token.getPosition());
         }
 
+    }
+
+    private int getCategoriaId() {
+        return TS.getCategoriaSimbolo(posId);
     }
 
     private void resetAtrs() {
@@ -511,24 +515,22 @@ public class Semantico implements Constants, SemanticConstants {
         categoriaAtual = -1;
     }
 
-    private int getValor() {
-        //TODO ver qualeh aqui q eu n entendi, eh noix
-        return -1;
+    private int getValor(Token token) {
+        //TODO pra geracao de codigo tem que arrumar pra casos que nao seja inteiro
+        return Integer.parseInt(token.getLexeme());
     }
 
     private int geValorId(Token token) {
-        //TODO pegar valor da constante id
+        //TODO pra geracao de codigo tem que arrumar
         return -1;
     }
 
-    private int getTipoVetor(Token token, int nivel) {
-        //TODO pegar tipo do vetor
-        return TS.getTipoVetor(token, nivel);
+    private int getTipoVetor(Token token) {
+        return TS.getTipoVetor(token, nivelAtual);
     }
 
-    private int getTipoMetodo(Token t, int nivel) {
-        //TODO pegar tipo do metodo que foi chamado, provavelmente vai ter que voltar e guardar qual foi
-        return TS.getTipoMetodo(t, nivel);
+    private int getTipoMetodo() {
+        return TS.getTipoMetodo(posId);
     }
 
     private int getTipoResultadoOperacao() {
@@ -558,11 +560,10 @@ public class Semantico implements Constants, SemanticConstants {
         switch (operadorAtual) {
             case OP_ADD_ADICAO:
             case OP_ADD_SUBTRACAO:
-                return operando == TIPO_INTEIRO || operando == TIPO_REAL;
             case OP_MULT_DIV:
             case OP_MULT_DIV_BARRA:
             case OP_MULT_VEZES:
-                return operando == TIPO_INTEIRO || operando == TIPO_REAL; //todo ver se realmente deixa separado ou junta com primeiro if
+                return operando == TIPO_INTEIRO || operando == TIPO_REAL;
             case OP_ADD_OU:
             case OP_MULT_E:
                 return operando == TIPO_BOOLEANO;
@@ -581,7 +582,7 @@ public class Semantico implements Constants, SemanticConstants {
 
     private boolean isParamAtuaisValidos() {
         //TODO verificar se existe PF correspondente e se o tipo e o MPP sao compativeis
-        return false;
+        return true;
     }
 
     private boolean isCompativel(int tipoExpr, int tipoLadoEsq) {
@@ -621,10 +622,25 @@ public class Semantico implements Constants, SemanticConstants {
         return TS.getPosicaoSimbolo(token, nivelAtual);
     }
 
-    private void updatePFs() {
-        //TODO atualiza parametros formais usando primeiro e ultimoIdLista
-        //TODO categoria Parametro, tipoAtual e MPP(?)
-        //TODO insere os pares em uma lista auxiliar, quais parametros possui...
+    private void updatePF() {
+        TS.updateParam(ultimoIdLista, tipoAtual);
+    }
+
+    private void updateNPF() {
+        TS.updateMetodo(posMetodoAtual, numParamFormais);
+        TS.updatePFsMetodo(posMetodoAtual, primeiroIdLista, ultimoIdLista);
+    }
+
+    private void updateIds() {
+        int primeiro = primeiroIdLista;
+        int ultimo = ultimoIdLista;
+        int deslocamentoLocal = 0;
+        while (primeiro < ultimo) {
+            Simbolo ID = TS.getSimbolo(primeiro);
+            TS.atualizarSimbolo(ID, categoriaAtual, subCategoriaAtual, deslocamentoLocal);
+            primeiro++;
+            deslocamentoLocal++;
+        }
     }
 
     private void removeVarsTS() {
@@ -637,10 +653,6 @@ public class Semantico implements Constants, SemanticConstants {
 
     private void updateTipoMetodo(int tipo) {
         TS.setTipoMetodo(posMetodoAtual, tipo);
-    }
-
-    private void updateNPF() {
-        TS.updateMetodo(posMetodoAtual, numParamFormais);
     }
 
     private boolean doesIdExistsOnThatLevel(Token token) {
@@ -665,19 +677,6 @@ public class Semantico implements Constants, SemanticConstants {
         return TS.getSubCategoriaSimbolo(token, nivelAtual);
     }
 
-
-    private void updateIds() {
-        int primeiro = primeiroIdLista;
-        int ultimo = ultimoIdLista;
-        int deslocamentoLocal = 0;
-        while (primeiro < ultimo) {
-            Simbolo ID = TS.getSimbolo(nivelAtual, primeiro);
-            TS.atualizarSimbolo(ID, categoriaAtual, subCategoriaAtual, deslocamentoLocal);
-            primeiro++;
-            deslocamentoLocal++;
-        }
-    }
-
     private int getUltimoIdTS() {
         return TS.getUltimoId();
     }
@@ -687,12 +686,15 @@ public class Semantico implements Constants, SemanticConstants {
         if (subCategoriaAtual == SUB_CAT_VETOR || tipoId == TIPO_CADEIA) {
             tamanho = numElementos;
         }
-        Simbolo s = new Simbolo(token, nivelAtual, deslocamento, categoriaAtual, subCategoriaAtual, tamanho, tipoId);
+        Simbolo s = new Simbolo();
+        s.setToken(token);
+        s.setNivel(nivelAtual);
+        s.setDeslocamento(deslocamento);
+        s.setCategoria(categoriaAtual);
+        s.setSubCategoria(subCategoriaAtual);
+        s.setTamanho(tamanho);
+        s.setTipo(tipoId);
+        s.setMpp(mpp);
         TS.inserirSimbolo(s);
-    }
-
-    private Simbolo constroiSimbolo(Token t, int nivel, int deslocamento, int categoria, int subCategoria, int tamanho) {
-        Simbolo s = new Simbolo(t, nivelAtual, deslocamento, categoriaAtual, subCategoriaAtual, tamanho);
-        return s;
     }
 }
