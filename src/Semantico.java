@@ -167,12 +167,12 @@ public class Semantico implements Constants, SemanticConstants {
                     throw new SemanticError("Métodos devem ser de tipo pré-definido", token.getPosition());
                 } else {
                     tipoMetAtual = tipoAtual;
-                    setTipoMetodo();
+                    setTipoMetodo(token, nivelAtual, tipoAtual);
                 }
                 return;
             case 125:
                 tipoMetAtual = TIPO_NULO;
-                setTipoMetodo();
+                setTipoMetodo(token, nivelAtual, tipoAtual);
                 return;
             case 126:
                 mpp = MPP_REFERENCIA;
@@ -606,8 +606,9 @@ public class Semantico implements Constants, SemanticConstants {
     	return TS.getPosicaoSimbolo(s);
     }
 
-    private void setTipoMetodo() {
+    private void setTipoMetodo(Token t, int nivel, int tipo) {
         //TODO seta o tipo do metodo na TS
+    	TS.setTipoMetodo(t,nivel,tipo);
     }
 
     private void updatePFs() {

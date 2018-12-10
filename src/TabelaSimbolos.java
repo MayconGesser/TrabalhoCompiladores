@@ -16,20 +16,11 @@ public class TabelaSimbolos implements SemanticConstants{
 	
 	//TODO adicionar tratamento de excecao pra qdo nao encontrar o simbolo (precisa?)
 	public Simbolo getSimbolo(int nivel, int deslocamento) {
-		Iterator<Simbolo> iterador = tabela.iterator();
-		Simbolo s = iterador.next();
-		while(s.getNivel() != nivel && s.getDeslocamento() != deslocamento && iterador.hasNext()) {
-			s = iterador.next();
-		}
-		return s; 
+		return retornaPonteiroPara(nivel, deslocamento); 
 	}
 	
 	public void atualizarSimbolo(Simbolo s, int categoria, int subCategoria, int deslocamento) {
-		Iterator<Simbolo> iterador = tabela.iterator();
-		Simbolo ss = iterador.next();
-		while(!(s.equals(ss))) {
-			ss = iterador.next();
-		}
+		Simbolo ss = retornaPonteiroPara(s);
 		ss.setCategoria(categoria);
 		ss.setSubCategoria(subCategoria);
 		ss.setDeslocamento(deslocamento);
@@ -43,6 +34,7 @@ public class TabelaSimbolos implements SemanticConstants{
 	//mesmo comportamento q getSimbolo, mas retira o simbolo da tabela
 	public Simbolo retirarSimbolo(int nivel, int deslocamento) {
 		Simbolo s = getSimbolo(nivel,deslocamento);
+		tabela.remove(s);
 		if(tabela.indexOf(s) == primeiroId && tabela.get(tabela.indexOf(s)+1) != null) {
 			++primeiroId;
 		}
@@ -86,6 +78,15 @@ public class TabelaSimbolos implements SemanticConstants{
 		return retornaSimboloPorLexema(t).getCategoria();
 	}
 	
+	public void setTipoMetodo(Token t, int nivel, int tipo) {
+		Iterator<Simbolo> iterador = tabela.iterator();
+		Simbolo s = iterador.next();
+		while(!(s.getToken().getLexeme().equals(t.getLexeme()) && s.getNivel() != nivel && s.getIdSemantico() != ID_METODO && iterador.hasNext())) {
+			s = iterador.next();
+		}
+		s.setTipo(tipo);
+	}
+	
 	private Simbolo retornaSimboloPorLexema(Token t) {
 		Iterator<Simbolo> iterador = tabela.iterator();
 		Simbolo retorno = iterador.next();
@@ -101,6 +102,15 @@ public class TabelaSimbolos implements SemanticConstants{
 		Iterator<Simbolo> iterador = tabela.iterator();
 		Simbolo retorno = iterador.next();
 		while(!(retorno.equals(s)) && iterador.hasNext()) {
+			retorno = iterador.next();
+		}
+		return retorno;
+	}
+	
+	private Simbolo retornaPonteiroPara(int nivel, int deslocamento) {
+		Iterator<Simbolo> iterador = tabela.iterator();
+		Simbolo retorno = iterador.next();
+		while(retorno.getNivel() != nivel && retorno.getDeslocamento() != deslocamento && iterador.hasNext()) {
 			retorno = iterador.next();
 		}
 		return retorno;
