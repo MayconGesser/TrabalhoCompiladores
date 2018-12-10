@@ -54,7 +54,7 @@ public class TabelaSimbolos implements SemanticConstants{
 	
 	public boolean verificaSeExisteEmMesmoNivel(Simbolo s) {
 		Simbolo ret = retornaSimboloPorLexema(s.getToken());
-		return s.getNivel() == ret.getNivel();
+		return s.ehMesmoNivel(ret);
 	}
 	
 	public int getPosicaoSimbolo(Simbolo s) {
