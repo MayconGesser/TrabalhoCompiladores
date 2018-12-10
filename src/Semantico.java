@@ -534,7 +534,7 @@ public class Semantico implements Constants, SemanticConstants {
                 return TIPO_BOOLEANO;
             case OP_ADD_ADICAO:
             case OP_ADD_SUBTRACAO:
-                return -1; //TODO verificar se inteiro ou real;
+                return (tipoAtual == TIPO_INTEIRO ? TIPO_INTEIRO : (tipoAtual == TIPO_REAL ? TIPO_REAL : -1)); //TODO verificar se inteiro ou real;
             case OP_MULT_VEZES:
             case OP_MULT_DIV_BARRA:
             case OP_MULT_DIV:
@@ -546,7 +546,7 @@ public class Semantico implements Constants, SemanticConstants {
 
     private boolean isOperadorAndOperandoCompativeis(int operando) throws SemanticError {
         switch (operadorAtual) {
-            case OP_ADD_ADICAO:
+            case OP_ADD_ADICAO:            	
             case OP_ADD_SUBTRACAO:
                 return operando == TIPO_INTEIRO || operando == TIPO_REAL;
             case OP_MULT_DIV:
