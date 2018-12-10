@@ -654,8 +654,7 @@ public class Semantico implements Constants, SemanticConstants {
     	int deslocamentoLocal = 0; 
     	while(primeiro < ultimo){
     		Simbolo ID = TS.getSimbolo(nivelAtual,primeiro);
-    		ID.atualizar(categoriaAtual,subCategoriaAtual,deslocamentoLocal);
-    		TS.atualizarSimbolo(ID);
+    		TS.atualizarSimbolo(ID, categoriaAtual, subCategoriaAtual, deslocamentoLocal);
     		primeiro++; 
     		deslocamentoLocal++; 
     	}
