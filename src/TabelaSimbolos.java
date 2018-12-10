@@ -33,9 +33,10 @@ public class TabelaSimbolos implements SemanticConstants {
         ss.setDeslocamento(deslocamento);
     }
 
-    public void updateMetodo(int posMetodoAtual, int numParamFormais) {
+    public void updateMetodo(int posMetodoAtual, int numParamFormais, int ultimoId) {
         Simbolo s = tabela.get(posMetodoAtual);
         s.setNPF(numParamFormais);
+        s.setPosParamFinal(ultimoId);
     }
 
     public void inserirSimbolo(Simbolo s) {
@@ -90,12 +91,7 @@ public class TabelaSimbolos implements SemanticConstants {
     }
 
     public int getCategoriaSimbolo(Token t, int nivel) {
-        try {
-            return getSimboloMaiorNivel(t, nivel).getCategoria();
-        } catch (Exception e) {
-            System.out.println(t.getLexeme() + " " + nivel);
-            return -1;
-        }
+        return getSimboloMaiorNivel(t, nivel).getCategoria();
     }
 
     public int getSubCategoriaSimbolo(Token token, int nivelAtual) {
@@ -161,18 +157,18 @@ public class TabelaSimbolos implements SemanticConstants {
         return tabela.stream().filter(simbolo -> simbolo.getNivel() == nivel).collect(Collectors.toList());
     }
 
-    public void updatePFsMetodo(int posMetodoAtual, int primeiroIdLista, int ultimoIdLista) {
-        Simbolo s = tabela.get(posMetodoAtual);
-        s.setParams(primeiroIdLista, ultimoIdLista);
-    }
-
-    public void updateParam(int ultimoIdLista, int tipoAtual) {
-        Simbolo s = tabela.get(ultimoIdLista);
+    public void updateParam(int id, int tipoAtual) {
+        Simbolo s = tabela.get(id);
         s.setTipo(tipoAtual);
     }
 
     public int getCategoriaSimbolo(int posId) {
         Simbolo s = tabela.get(posId);
         return s.getCategoria();
+    }
+
+    public int getNPF(int posId) {
+        Simbolo s = tabela.get(posId);
+        return s.getNPF();
     }
 }

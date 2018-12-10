@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 public class Semantico implements Constants, SemanticConstants {
     private int nivelAtual = -1;
     private int deslocamento = -1;
@@ -13,6 +15,7 @@ public class Semantico implements Constants, SemanticConstants {
     private int categoriaAtual = -1;
     private int mpp = -1;
     private int posId = -1;
+    private Stack<Integer> posIdStack = new Stack<>();
     private int tipoExpr = -1;
     private int contextoEXPR = -1;
     private int tipoMetAtual = -1;
@@ -26,6 +29,7 @@ public class Semantico implements Constants, SemanticConstants {
     private boolean opNega = false;
     private boolean opUnario = false;
     private int tipoVar = -1;
+    private int posMetodo = -1;
 
     private TabelaSimbolos TS = new TabelaSimbolos();
 
@@ -139,6 +143,7 @@ public class Semantico implements Constants, SemanticConstants {
                     posId = getUltimoIdTS();
                     numParamFormais = 0;
                     nivelAtual++;
+                    primeiroIdLista = posId + 1;
                 }
                 return;
             case 118:
@@ -148,7 +153,7 @@ public class Semantico implements Constants, SemanticConstants {
                 updateTipoMetodo(tipoAtual);
                 return;
             case 120:
-                removeVarsTS();
+//                removeVarsTS();
                 nivelAtual--;
                 return;
             case 121:
@@ -285,6 +290,8 @@ public class Semantico implements Constants, SemanticConstants {
                 if (contextoEXPR == CONT_EXPR_PARATUAL) {
                     numParamAtuais++;
                     if (!isParamAtuaisValidos()) {
+                        System.out.println(isParamAtuaisValidos());
+                        System.out.println(token.getLexeme());
                         throw new SemanticError("parametros atuais nao coincidem com parametros do metodo", token.getPosition());
                     }
                 } else if (contextoEXPR == CONT_EXPR_IMPRESSAO) {
@@ -425,6 +432,8 @@ public class Semantico implements Constants, SemanticConstants {
                 } else {
                     numParamAtuais = 0;
                     contextoEXPR = CONT_EXPR_PARATUAL;
+                    numParamFormais = getNumParamFormais();
+                    posMetodo = posId;
                 }
                 return;
             case 172:
@@ -504,6 +513,10 @@ public class Semantico implements Constants, SemanticConstants {
 
     }
 
+    private int getNumParamFormais() {
+        return TS.getNPF(posId);
+    }
+
     private int getTipoId() {
         return TS.getTipoMetodo(posId);
     }
@@ -578,8 +591,18 @@ public class Semantico implements Constants, SemanticConstants {
 
 
     private boolean isParamAtuaisValidos() {
-        //TODO verificar se existe PF correspondente e se o tipo e o MPP sao compativeis
-        return true;
+        Simbolo metodo = TS.getSimbolo(posMetodo);
+        if (metodo.getNPF() < numParamAtuais) {
+            return false;
+        }
+        int posInicial = metodo.getPosParamFinal() - metodo.getNPF() + 1;
+        Simbolo param = TS.getSimbolo(posInicial + numParamAtuais - 1);
+        if (!(tipoExpr == param.getTipo())){
+            System.out.println(metodo);
+            System.out.println(param);
+            System.out.println(tipoExpr);
+        }
+        return tipoExpr == param.getTipo();
     }
 
     private boolean isCompativel(int tipoExpr, int tipoLadoEsq) {
@@ -620,12 +643,16 @@ public class Semantico implements Constants, SemanticConstants {
     }
 
     private void updatePF() {
-        TS.updateParam(ultimoIdLista, tipoAtual);
+        int primeiro = primeiroIdLista;
+        int ultimo = ultimoIdLista;
+        while (primeiro <= ultimo) {
+            TS.updateParam(primeiro, tipoAtual);
+            primeiro++;
+        }
     }
 
     private void updateNPF() {
-        TS.updateMetodo(posId, numParamFormais);
-        TS.updatePFsMetodo(posId, primeiroIdLista, ultimoIdLista);
+        TS.updateMetodo(posId, numParamFormais, ultimoIdLista);
     }
 
     private void updateIds() {

@@ -9,8 +9,7 @@ public class Simbolo implements SemanticConstants {
     private int subCategoria = -1;
     private int tamanho = -1;
     private int tipo = -1;
-    private int NPF = -1;
-    private int posParamInicial = -1;
+    private int NPF = 0;
     private int posParamFinal = -1;
     private int mpp = -1;
     private int id = -1;
@@ -102,11 +101,6 @@ public class Simbolo implements SemanticConstants {
         this.NPF = NPF;
     }
 
-    public void setParams(int primeiro, int ultimo) {
-        posParamFinal = ultimo;
-        posParamInicial = primeiro;
-    }
-
     public int getMpp() {
         return mpp;
     }
@@ -148,5 +142,13 @@ public class Simbolo implements SemanticConstants {
         Simbolo simbolo = (Simbolo) o;
         return nivel == simbolo.nivel &&
                 Objects.equals(lexeme, simbolo.lexeme);
+    }
+
+    public int getPosParamFinal() {
+        return posParamFinal;
+    }
+
+    public void setPosParamFinal(int posParamFinal) {
+        this.posParamFinal = posParamFinal;
     }
 }
