@@ -134,7 +134,7 @@ vetor		= id : "vetor"
 
 <fator_const> ::=  #114 "="  <constante> #115 | #116  î ;
 
-<dcl_metodos> ::= <dcl_metodo>  ";"  <dcl_metodos>  |  î ;
+<dcl_metodos> ::= <dcl_metodo> #181 ";"  <dcl_metodos>  |  î ;
 
 <dcl_metodo> ::= metodo id  #117 <par_formais> #118 <tipo_metodo> #119 ";"   <bloco> #120 ;                 
 
@@ -156,8 +156,8 @@ vetor		= id : "vetor"
              |  <com_composto>                                 
              | se <expressao> #129 entao <comando> <senaoparte> 
              | enquanto <expressao> #129 faca <comando>                               
-             | leia "(" #130 <lid> ")"                                    
-             | escreva "(" #131 <lista_expr> ")"  
+             | leia "(" #130 <lid> #181")"                                    
+             | escreva "(" #131 <lista_expr> #182 ")"  
              | retorne  <expressao> #132
 	   |  î ;
 
