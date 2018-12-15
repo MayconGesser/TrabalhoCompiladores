@@ -86,7 +86,7 @@ public class Simbolo implements SemanticConstants {
     }
 
     public boolean ehMetodo() {
-        return this.idSemantico == ID_METODO;
+        return this.id == ID_METODO;
     }
 
     public boolean ehVetor() {
