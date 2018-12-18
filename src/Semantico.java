@@ -306,7 +306,7 @@ public class Semantico implements Constants, SemanticConstants {
                     //System.out.println(" AC 141 - antes do pop em NPA");
                     numParamAtuaisStack.push(numParamAtuaisStack.pop() + 1);
                     if (!isParamAtuaisValidos()) {
-                        throw new SemanticError("parametros atuais nao coincidem com parametros do metodo", token.getPosition());
+                        throw new SemanticError("tipos de parametros atuais nao coincidem com tipos de parametros esperados pelo metodo", token.getPosition());
                     }
                 } else if (contextoExprStack.peek() == CONT_EXPR_IMPRESSAO) {
                     if (tipoExpr == TIPO_BOOLEANO) {
@@ -642,9 +642,8 @@ public class Semantico implements Constants, SemanticConstants {
     private boolean isCompativel(int tipoExpr, int tipoLadoEsq) {
         switch (tipoExpr) {
             case TIPO_INTEIRO:
-                return tipoLadoEsq == TIPO_INTEIRO || tipoLadoEsq == TIPO_REAL;
             case TIPO_REAL:
-                return tipoLadoEsq == TIPO_REAL;
+            	return tipoLadoEsq == TIPO_INTEIRO || tipoLadoEsq == TIPO_REAL;
             case TIPO_BOOLEANO:
                 return tipoLadoEsq == TIPO_BOOLEANO;
             case TIPO_CARACTER:
