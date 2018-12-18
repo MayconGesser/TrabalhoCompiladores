@@ -52,8 +52,13 @@ public class Sintatico implements Constants {
                 throw new SyntaticError(PARSER_ERROR[x], currentToken.getPosition());
         } else // isSemanticAction(x)
         {
-            if (semanticAnalyser != null) {
-                semanticAnalyser.executeAction(x - FIRST_SEMANTIC_ACTION, previousToken);
+            try {
+                if (semanticAnalyser != null) {
+                    semanticAnalyser.executeAction(x - FIRST_SEMANTIC_ACTION, previousToken);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new SemanticError(e.getClass().toString(), currentToken.getPosition());
             }
             return false;
         }
@@ -63,7 +68,7 @@ public class Sintatico implements Constants {
         int p = PARSER_TABLE[topStack - FIRST_NON_TERMINAL][tokenInput - 1];
         if (p >= 0) {
             int[] production = PRODUCTIONS[p];
-            //empilha a produ��o em ordem reversa
+            //empilha a produção em ordem reversa
             for (int i = production.length - 1; i >= 0; i--) {
                 stack.push(new Integer(production[i]));
             }

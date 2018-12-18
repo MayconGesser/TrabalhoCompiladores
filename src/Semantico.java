@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Stack;
 
 public class Semantico implements Constants, SemanticConstants {
@@ -47,7 +48,7 @@ public class Semantico implements Constants, SemanticConstants {
                 return;
             case 104:
                 updateIds();
-//                System.out.println("AC 104");
+                System.out.println("AC 104");
                 pop();
                 return;
             case 105:
@@ -171,7 +172,7 @@ public class Semantico implements Constants, SemanticConstants {
                     throw new SemanticError("Parametros devem ser de tipo pré-definido", token.getPosition());
                 } else {
                     updatePF();
-//                    System.out.println("AC 123");
+                    System.out.println("AC 123");
                     pop();
                 }
                 return;
@@ -211,7 +212,7 @@ public class Semantico implements Constants, SemanticConstants {
                 contextoLID = CONT_LID_LEITURA;
                 return;
             case 131:
-                System.out.println("contextoExprStack - PUSH - AC 131");
+                //System.out.println("contextoExprStack - PUSH - AC 131");
                 contextoExprStack.push(CONT_EXPR_IMPRESSAO);
                 return;
             case 132:
@@ -230,7 +231,7 @@ public class Semantico implements Constants, SemanticConstants {
                         throw new SemanticError("id deveria ser indexado", token.getPosition());
                     } else {
                         tipoLadoEsq = getTipoId();
-                        //System.out.println("AC 133");
+                        System.out.println("AC 133");
                         pop();
                     }
                 } else {
@@ -274,7 +275,7 @@ public class Semantico implements Constants, SemanticConstants {
                 return;
             case 138:
                 numParamAtuaisStack.push(0);
-                System.out.println("contextoExprStack - PUSH - 138");
+                //System.out.println("contextoExprStack - PUSH - 138");
                 contextoExprStack.push(CONT_EXPR_PARATUAL);
                 return;
             case 139:
@@ -282,7 +283,7 @@ public class Semantico implements Constants, SemanticConstants {
                 if (numParamFormais != numParamAtuaisStack.pop()) {
                     throw new SemanticError("erro na quantidade de parâmetros", token.getPosition());
                 } else {
-                    //System.out.println("AC 139");
+                    System.out.println("AC 139");
                     pop();
                     //ger cod
                 }
@@ -295,7 +296,7 @@ public class Semantico implements Constants, SemanticConstants {
                 } else if (numParamFormais != 0) {
                     throw new SemanticError("erro na quantidade de parametros", token.getPosition());
                 } else {
-                    //System.out.println("AC 140");
+                    System.out.println("AC 140");
                     pop();
                     //ger cod
                 }
@@ -311,7 +312,6 @@ public class Semantico implements Constants, SemanticConstants {
                     if (tipoExpr == TIPO_BOOLEANO) {
                         throw new SemanticError("tipo invalido para impressão", token.getPosition());
                     } else {
-                        System.out.println("contextoExprStack - POP - 141");
                         //ger cod
                     }
                 }
@@ -435,7 +435,7 @@ public class Semantico implements Constants, SemanticConstants {
             case 169:
                 tipoFator = tipoVar;
                 if (!TS.getSimbolo(posIdStack.peek()).ehMetodo()) {
-                    //System.out.println("AC 169");
+                    System.out.println("AC 169");
                     pop();
                 }
                 return;
@@ -449,7 +449,7 @@ public class Semantico implements Constants, SemanticConstants {
                     throw new SemanticError("esperava-se método com tipo", token.getPosition());
                 } else {
                     numParamAtuaisStack.push(0);
-                    System.out.println("contextoExprStack - PUSH - AC 171");
+                    //System.out.println("contextoExprStack - PUSH - AC 171");
                     contextoExprStack.push(CONT_EXPR_PARATUAL);
                     numParamFormais = getNumParamFormais();
                 }
@@ -458,9 +458,9 @@ public class Semantico implements Constants, SemanticConstants {
                 //System.out.println(" AC 172 - antes do pop em NPA");
                 if (numParamAtuaisStack.pop() == numParamFormais) {
                     tipoVar = getTipoId();
-                    //System.out.println("AC 172");
+                    System.out.println("AC 172");
                     pop();
-                    System.out.println("contextoExprStack - POP - AC 172");
+                    //System.out.println("contextoExprStack - POP - AC 172");
                     contextoExprStack.pop();
                     //ger cod
                 } else {
@@ -492,7 +492,7 @@ public class Semantico implements Constants, SemanticConstants {
                         throw new SemanticError("Erro na quantidade parâmetros", token.getPosition());
                     } else {
                         tipoVar = getTipoResultadoOperacao();
-                        //System.out.println("AC 174");
+                        System.out.println("AC 174");
                         pop();
                         //ger cod
                     }
@@ -533,7 +533,7 @@ public class Semantico implements Constants, SemanticConstants {
 //                valConst = getValor(token);
                 return;
             case 181:
-                //System.out.println("AC 181");
+                System.out.println("AC 181");
                 pop();
                 return;
             case 182:
@@ -547,7 +547,8 @@ public class Semantico implements Constants, SemanticConstants {
 
     private int pop() {
         int pop = posIdStack.pop();
-        //System.out.println(" POPOU => " + pop + " " + TS.getSimbolo(pop).getLexeme());
+        System.out.println(" POPOU => " + pop + " " + TS.getSimbolo(pop).getLexeme());
+        System.out.println("PILHA ATUAL => " + Arrays.toString(posIdStack.toArray()));
         return pop;
     }
 
