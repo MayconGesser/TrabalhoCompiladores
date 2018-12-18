@@ -239,10 +239,11 @@ public class Semantico implements Constants, SemanticConstants {
                 }
                 return;
             case 134:
-                if (!isCompativel(tipoExpr, tipoLadoEsq)) {
+            	//trata edge case de inteiro recebendo real
+                if (!isCompativel(tipoExpr, tipoLadoEsq) || (tipoLadoEsq == TIPO_INTEIRO && tipoExpr == TIPO_REAL)) {
                     //System.out.println(" tipoExpr - tipoLadoEsq " + tipoExpr + " " + tipoLadoEsq);
                     throw new SemanticError("tipos incompatíveis", token.getPosition());
-                } else {
+                } else {                		
                     //ger cod
                 }
                 return;
