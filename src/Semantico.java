@@ -591,13 +591,13 @@ public class Semantico implements Constants, SemanticConstants {
                 return TIPO_BOOLEANO;
             case OP_ADD_ADICAO:
             case OP_ADD_SUBTRACAO:
-                return (tipoAtual == TIPO_INTEIRO ? TIPO_INTEIRO : (tipoAtual == TIPO_REAL ? TIPO_REAL : -1)); //TODO verificar se inteiro ou real;
+                return (tipoAtual == TIPO_INTEIRO ? TIPO_INTEIRO : (tipoAtual == TIPO_REAL ? TIPO_REAL : -1)); 
             case OP_MULT_VEZES:
             case OP_MULT_DIV_BARRA:
             case OP_MULT_DIV:
                 return TIPO_REAL;
             default:
-                return -1;
+                return TS.getSimbolo(posIdStack.peek()).getTipo();
         }
     }
 
