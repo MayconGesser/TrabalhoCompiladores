@@ -122,35 +122,35 @@ vetor		= id : "vetor"
 <bloco> ::= <dcl_var_const>  <dcl_metodos>  <com_composto>  ;		 	
  
 <dcl_var_const> ::=  <tipo>  <dimensao> #102 <lid> #103 <fator_const> #104 ";" <dcl_var_const> 
-                              |   î ;
+                              |   Ã®;
 
 <tipo> ::=  inteiro #105 | real #106 | booleano #107 | caracter #108 | cadeia "[" <constante> #109 "]";
 
-<dimensao> ::= #110 "["  <constante> #111  "]"  |  #112 î ;
+<dimensao> ::= #110 "["  <constante> #111  "]"  |  #112 Ã®;
 
 <lid> ::= id  #113 <rep_lid>  ;
 
-<rep_lid> ::= #181 ","  <lid> | î ;
+<rep_lid> ::= #181 ","  <lid> | Ã®;
 
-<fator_const> ::=  #114 "="  <constante> #115 | #116  î ;
+<fator_const> ::=  #114 "="  <constante> #115 | #116  Ã®;
 
-<dcl_metodos> ::= <dcl_metodo> #181 ";"  <dcl_metodos>  |  î ;
+<dcl_metodos> ::= <dcl_metodo> #181 ";"  <dcl_metodos>  |  Ã®;
 
 <dcl_metodo> ::= metodo id  #117 <par_formais> #118 <tipo_metodo> #119 ";"   <bloco> #120 ;                 
 
-<par_formais> ::= "(" <mp_par> #121 <lid_met> #122 ":" <tipo> #123 <rep_par> ")" | î ;
+<par_formais> ::= "(" <mp_par> #121 <lid_met> #122 ":" <tipo> #123 <rep_par> ")" | Ã®;
 
 <lid_met> ::= id #113;                       
 
-<rep_par> ::= ";" <mp_par> #121 <lid> #122 ":"  <tipo> #123 <rep_par>  |  î ;
+<rep_par> ::= ";" <mp_par> #121 <lid> #122 ":"  <tipo> #123 <rep_par>  |  Ã®;
 
-<tipo_metodo> ::=   ":"  <tipo> #124 | î #125 ;
+<tipo_metodo> ::=   ":"  <tipo> #124 | Ã®#125 ;
 
 <mp_par>  ::= ref #126 |  val #127 ;
 
 <com_composto>  ::= "{"   <comando>  <replistacomando>  "}"  ;                             
 
-<replistacomando> ::=   ";"  <comando>  <replistacomando>  |  î ;
+<replistacomando> ::=   ";"  <comando>  <replistacomando>  |  Ã®;
 
 <comando> ::= id #128 <rcomid>
              |  <com_composto>                                 
@@ -159,33 +159,33 @@ vetor		= id : "vetor"
              | leia "(" #130 <lid> #181")"                                    
              | escreva "(" #131 <lista_expr> #182 ")"  
              | retorne  <expressao> #132
-	   |  î ;
+	   |  Ã®;
 
-<senaoparte> ::= senao  <comando>  |  î ;
+<senaoparte> ::= senao  <comando>  |  Ã®;
 
 <rcomid> ::= #133 ":=" <expressao> #134
-                   |   "[" #135 <expressao> #136 "]" ":=" <expressao> #134
+                   |   "[" #135 <expressao> #136 "]" #181 ":=" <expressao> #134
                    |   "(" #137 #138 <lista_expr> ")" #139
-                   |   î #140 ;
+                   |   Ã®#140 ;
 <lista_expr>  ::=  <expressao> #141 <rep_lexpr> ;
 
-<rep_lexpr>  ::= "," <expressao> #141 <rep_lexpr> |  î ;
+<rep_lexpr>  ::= "," <expressao> #141 <rep_lexpr> |  Ã®;
 
 <expressao>  ::= <expsimp> #142 <resto_expressao> ;
 
-<resto_expressao> ::= <oprel> <expsimp> #143 |  î ;
+<resto_expressao> ::= <oprel> <expsimp> #143 |  Ã®;
 
 <oprel> ::= "=" #144 | "<" #145 | ">" #146 | ">=" #147 | "<=" #148 | "<>" #149 ;
 
 <expsimp> ::= <termo> #150 <rep_expsimp> ;
 
-<rep_expsimp> ::= <op_add> #151 <termo> #152 <rep_expsimp>  |  î ;
+<rep_expsimp> ::= <op_add> #151 <termo> #152 <rep_expsimp>  |  Ã®;
                       
 <op_add> ::= "+" #153 | "-" #154 | ou #155 ;
 
 <termo> ::= <fator> #156 <rep_termo> ;
 
-<rep_termo> ::= <op_mult> #157 <fator> #158 <rep_termo> |  î ;
+<rep_termo> ::= <op_mult> #157 <fator> #158 <rep_termo> |  Ã®;
 
 <op_mult> ::= "*" #159 | "/" #160 |  div #162 |  e #161 ;
 
@@ -197,7 +197,7 @@ vetor		= id : "vetor"
 
 <rvar> ::= "(" #171 <expressao> #141 <rep_lexpr> ")" #172  
               |   "[" #135 <expressao> #173 "]"
-              |   î  #174 ;
+              |   Ã® #174 ;
 
 <constante> ::= id #175 |  <constante_explicita> ;
   

@@ -293,7 +293,7 @@ public class Semantico implements Constants, SemanticConstants {
                     throw new SemanticError("id deveria ser um método", token.getPosition());
                 } else if (tipoMetAtual != TIPO_NULO) {
                     throw new SemanticError("esperava-se método sem tipo", token.getPosition());
-                } else if (numParamFormais != 0) {
+                } else if (getNumParamFormais() != 0) {
                     throw new SemanticError("erro na quantidade de parametros", token.getPosition());
                 } else {
                     System.out.println("AC 140");
@@ -434,7 +434,7 @@ public class Semantico implements Constants, SemanticConstants {
                 return;
             case 169:
                 tipoFator = tipoVar;
-                if (!TS.getSimbolo(posIdStack.peek()).ehMetodo()) {
+                if (!posIdStack.isEmpty() && !TS.getSimbolo(posIdStack.peek()).ehMetodo()) {
                     System.out.println("AC 169");
                     pop();
                 }

@@ -52,13 +52,8 @@ public class Sintatico implements Constants {
                 throw new SyntaticError(PARSER_ERROR[x], currentToken.getPosition());
         } else // isSemanticAction(x)
         {
-            try {
-                if (semanticAnalyser != null) {
-                    semanticAnalyser.executeAction(x - FIRST_SEMANTIC_ACTION, previousToken);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new SemanticError(e.getClass().toString(), currentToken.getPosition());
+            if (semanticAnalyser != null) {
+                semanticAnalyser.executeAction(x - FIRST_SEMANTIC_ACTION, previousToken);
             }
             return false;
         }
