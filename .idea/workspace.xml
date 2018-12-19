@@ -7,8 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="271d0e56-3bee-4dbb-969e-04155f9288ca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/EstadoExpressao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Semantico.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Semantico.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Semantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Semantico.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -18,17 +18,64 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/src/EstadoExpressao.java">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="105">
+                    <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Sintatico.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="172">
+              <caret line="55" selection-start-line="55" selection-end-line="55" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Semantico.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="283" column="61" selection-start-line="283" selection-start-column="61" selection-end-line="283" selection-end-column="61" />
+            <state relative-caret-position="389">
+              <caret line="572" column="33" lean-forward="true" selection-start-line="572" selection-start-column="33" selection-end-line="572" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#23283#23284#0" expanded="true" />
-                <element signature="e#23341#23342#0" expanded="true" />
+                <element signature="e#23062#23063#0" expanded="true" />
+                <element signature="e#23113#23114#0" expanded="true" />
+                <element signature="e#23144#23145#0" expanded="true" />
+                <element signature="e#23202#23203#0" expanded="true" />
+                <element signature="e#23238#23239#0" expanded="true" />
+                <element signature="e#23302#23303#0" expanded="true" />
+                <element signature="e#23343#23344#0" expanded="true" />
+                <element signature="e#23401#23402#0" expanded="true" />
+                <element signature="e#23550#23551#0" expanded="true" />
+                <element signature="e#23607#23608#0" expanded="true" />
+                <element signature="e#27078#27079#0" expanded="true" />
+                <element signature="e#27189#27190#0" expanded="true" />
+                <element signature="e#27278#27279#0" expanded="true" />
+                <element signature="e#27388#27389#0" expanded="true" />
+                <element signature="e#27496#27497#0" expanded="true" />
+                <element signature="e#27843#27844#0" expanded="true" />
+                <element signature="e#28509#28510#0" expanded="true" />
+                <element signature="e#28642#28643#0" expanded="true" />
+                <element signature="e#28732#28733#0" expanded="true" />
+                <element signature="e#29154#29155#0" expanded="true" />
+                <element signature="e#29228#29229#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -37,8 +84,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/EditorGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="432" selection-start-line="432" selection-end-line="432" />
+            <state relative-caret-position="265">
+              <caret line="469" column="5" selection-start-line="469" selection-start-column="5" selection-end-line="469" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -60,7 +107,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SemanticConstants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
+            <state relative-caret-position="62">
               <caret line="23" column="11" lean-forward="true" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
             </state>
           </provider>
@@ -93,10 +140,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>erro na quantidade de parametros</find>
-      <find>posId</find>
-      <find>mpp</find>
-      <find>getM</find>
       <find>parametros atuais nao</find>
       <find>parametros atuais nao coincidem com parametros do metodo</find>
       <find>removeVarsTS</find>
@@ -123,12 +166,17 @@
       <find>tipos i</find>
       <find>getTipoResultadoOperacao</find>
       <find>erro na quan</find>
+      <find>System.</find>
+      <find>168</find>
+      <find>opera</find>
+      <find>operando inco</find>
     </findStrings>
     <replaceStrings>
       <replace>pop();</replace>
       <replace>//System.out.printl</replace>
       <replace>//System.out.println</replace>
       <replace>System.out.println</replace>
+      <replace>//System.</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -147,6 +195,7 @@
         <option value="$PROJECT_DIR$/src/Simbolo.java" />
         <option value="$PROJECT_DIR$/src/Sintatico.java" />
         <option value="$PROJECT_DIR$/src/Semantico.java" />
+        <option value="$PROJECT_DIR$/src/EstadoExpressao.java" />
       </list>
     </option>
   </component>
@@ -161,7 +210,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -178,13 +227,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545237249957" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545245085246" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -253,7 +302,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74443000" />
+    <option name="totallyTimeSpent" value="75749000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -268,7 +317,7 @@
     <frame x="0" y="30" width="1920" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.18336888" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1828877" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -277,8 +326,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946523" weight="0.44664466" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39823982" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946523" visible="true" weight="0.44664466" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39823982" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946523" weight="0.3290735" />
@@ -338,13 +387,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Semantico.java</url>
-          <line>242</line>
+          <line>245</line>
           <properties />
           <option name="timeStamp" value="100" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Semantico.java</url>
-          <line>283</line>
+          <line>286</line>
           <properties />
           <option name="timeStamp" value="101" />
         </line-breakpoint>
@@ -494,15 +543,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Sintatico.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="79" column="40" lean-forward="true" selection-start-line="79" selection-start-column="40" selection-end-line="79" selection-end-column="40" />
+        <state relative-caret-position="172">
+          <caret line="55" selection-start-line="55" selection-end-line="55" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/EditorGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="432" selection-start-line="432" selection-end-line="432" />
+        <state relative-caret-position="265">
+          <caret line="469" column="5" selection-start-line="469" selection-start-column="5" selection-end-line="469" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -533,20 +582,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SemanticConstants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
+        <state relative-caret-position="62">
           <caret line="23" column="11" lean-forward="true" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Semantico.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="283" column="61" selection-start-line="283" selection-start-column="61" selection-end-line="283" selection-end-column="61" />
+        <state relative-caret-position="389">
+          <caret line="572" column="33" lean-forward="true" selection-start-line="572" selection-start-column="33" selection-end-line="572" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#23283#23284#0" expanded="true" />
-            <element signature="e#23341#23342#0" expanded="true" />
+            <element signature="e#23062#23063#0" expanded="true" />
+            <element signature="e#23113#23114#0" expanded="true" />
+            <element signature="e#23144#23145#0" expanded="true" />
+            <element signature="e#23202#23203#0" expanded="true" />
+            <element signature="e#23238#23239#0" expanded="true" />
+            <element signature="e#23302#23303#0" expanded="true" />
+            <element signature="e#23343#23344#0" expanded="true" />
+            <element signature="e#23401#23402#0" expanded="true" />
+            <element signature="e#23550#23551#0" expanded="true" />
+            <element signature="e#23607#23608#0" expanded="true" />
+            <element signature="e#27078#27079#0" expanded="true" />
+            <element signature="e#27189#27190#0" expanded="true" />
+            <element signature="e#27278#27279#0" expanded="true" />
+            <element signature="e#27388#27389#0" expanded="true" />
+            <element signature="e#27496#27497#0" expanded="true" />
+            <element signature="e#27843#27844#0" expanded="true" />
+            <element signature="e#28509#28510#0" expanded="true" />
+            <element signature="e#28642#28643#0" expanded="true" />
+            <element signature="e#28732#28733#0" expanded="true" />
+            <element signature="e#29154#29155#0" expanded="true" />
+            <element signature="e#29228#29229#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/EstadoExpressao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
