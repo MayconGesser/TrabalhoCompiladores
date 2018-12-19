@@ -409,6 +409,9 @@ public class Semantico implements Constants, SemanticConstants {
                 if (opNega && tipoFator != TIPO_BOOLEANO) {
                     throw new SemanticError("Operador 'nao' exige operando booleano", token.getPosition());
                 }
+                else {
+                	opNega = false;
+                }
                 return;
             case 165:
                 if (opUnario) {
