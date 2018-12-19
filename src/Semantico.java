@@ -18,7 +18,6 @@ public class Semantico implements Constants, SemanticConstants {
     private Stack<Integer> posIdStack = new Stack<>();
     private int tipoExpr = -1;
     private Stack<Integer> contextoExprStack = new Stack<>();
-    private Stack<Integer> negacaoUnarioStack = new Stack<>();
     private int tipoMetAtual = -1;
     private int tipoLadoEsq = -1;
     private int tipoVarIndexada = -1;
@@ -27,6 +26,7 @@ public class Semantico implements Constants, SemanticConstants {
     private int operadorAtual = -1;
     private int tipoTermo = -1;
     private int tipoFator = -1;
+    private boolean opNega = false;
     private boolean opUnario = false;
     private int tipoVar = -1;
 
@@ -399,14 +399,14 @@ public class Semantico implements Constants, SemanticConstants {
                 operadorAtual = OP_MULT_DIV;
                 return;
             case 163:
-                if (operadorAtual == OP_NEGA) {
+                if (opNega) {
                     throw new SemanticError("Operador `não` repetido não pode", token.getPosition());
                 } else {
-                    operadorAtual = OP_NEGA;
+                    opNega = true;
                 }
                 return;
             case 164:
-                if (operadorAtual == OP_NEGA && tipoFator != TIPO_BOOLEANO) {
+                if (opNega && tipoFator != TIPO_BOOLEANO) {
                     throw new SemanticError("Operador 'nao' exige operando booleano", token.getPosition());
                 }
                 return;
@@ -425,10 +425,7 @@ public class Semantico implements Constants, SemanticConstants {
                 }
                 return;
             case 167:
-            	if(operadorAtual == OP_NEGA) {
-            		negacaoUnarioStack.push(operadorAtual);
-            		operadorAtual = -1;
-            	}
+            	opNega = false;
             	opUnario = false;
                 return;
             case 168:
@@ -590,7 +587,6 @@ public class Semantico implements Constants, SemanticConstants {
             case OP_REL_DIFERENTE:
             case OP_ADD_OU:
             case OP_MULT_E:
-            case OP_NEGA:
                 return TIPO_BOOLEANO;
             case OP_ADD_ADICAO:
             case OP_ADD_SUBTRACAO:

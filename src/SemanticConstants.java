@@ -45,5 +45,4 @@ public interface SemanticConstants extends Constants{
 	int OP_MULT_DIV_BARRA = 11;
 	int OP_MULT_DIV = 12;
 	int OP_MULT_E = 13;
-	int OP_NEGA = 14;
 }
