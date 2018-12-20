@@ -723,11 +723,7 @@ public class Semantico implements Constants, SemanticConstants {
     }
 
     private void removeVarsTS() {
-        int d = deslocamento;
-        while (d > 0) {
-            TS.retirarSimbolo(nivelAtual, d);
-            --d;
-        }
+        TS.retirarSimbolo(nivelAtual);
     }
 
     private void updateTipoMetodo(int tipo) {

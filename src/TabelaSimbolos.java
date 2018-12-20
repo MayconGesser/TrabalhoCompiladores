@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,18 +7,11 @@ import java.util.stream.Collectors;
 public class TabelaSimbolos implements SemanticConstants {
 
     private final LinkedList<Simbolo> tabela;
-    private int primeiroId;
     private int ultimoId;
 
     public TabelaSimbolos() {
         tabela = new LinkedList<>();
-        primeiroId = -1;
         ultimoId = -1;
-    }
-
-    //TODO adicionar tratamento de excecao pra qdo nao encontrar o simbolo (precisa?)
-    public Simbolo getSimbolo(int nivel, int deslocamento) {
-        return retornaPonteiroPara(nivel, deslocamento);
     }
 
     public Simbolo getSimbolo(int pos) {
@@ -44,16 +36,12 @@ public class TabelaSimbolos implements SemanticConstants {
         ultimoId = tabela.indexOf(s);
     }
 
-    //mesmo comportamento q getSimbolo, mas retira o simbolo da tabela
-    public Simbolo retirarSimbolo(int nivel, int deslocamento) { //TODO VER ISSO AQUI
-        Simbolo s = getSimbolo(nivel, deslocamento);
-        if (tabela.indexOf(s) == primeiroId && tabela.get(tabela.indexOf(s) + 1) != null) {
-            ++primeiroId;
-        } else if (tabela.indexOf(s) == ultimoId && tabela.get(tabela.indexOf(s) - 1) != null) {
-            --ultimoId;
+    public void retirarSimbolo(int nivelAtual) {
+        for (Simbolo simbolo : tabela) {
+            if (simbolo.getNivel() == nivelAtual && simbolo.getCategoria() != SemanticConstants.CAT_PARAMETRO) {
+                tabela.remove(simbolo);
+            }
         }
-        tabela.remove(s);
-        return s;
     }
 
     public boolean verificaSeExisteEmMesmoNivel(Token t, int nivel) {
@@ -79,10 +67,6 @@ public class TabelaSimbolos implements SemanticConstants {
 
     public int getUltimoId() {
         return ultimoId;
-    }
-
-    public void limparTabela() {
-        tabela.clear();
     }
 
     //https://stackoverflow.com/questions/27876260/finding-element-in-linkedlist-with-lambda
@@ -138,16 +122,6 @@ public class TabelaSimbolos implements SemanticConstants {
         Iterator<Simbolo> iterador = tabela.iterator();
         Simbolo retorno = iterador.next();
         while (!(retorno.equals(s)) && iterador.hasNext()) {
-            retorno = iterador.next();
-        }
-        return retorno;
-    }
-
-    private Simbolo retornaPonteiroPara(int nivel, int deslocamento) {
-        List<Simbolo> filtrada = filtrarPorNivel(nivel);
-        Iterator<Simbolo> iterador = filtrada.iterator();
-        Simbolo retorno = iterador.next();
-        while (retorno.getDeslocamento() != deslocamento && iterador.hasNext()) {
             retorno = iterador.next();
         }
         return retorno;
