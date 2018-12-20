@@ -500,7 +500,7 @@ public class Semantico implements Constants, SemanticConstants {
                 } else if (categoria == CAT_METODO) {
                     if (tipo == TIPO_NULO) {
                         throw new SemanticError("Esperava-se método com tipo", token.getPosition());
-                    } else if (numParamFormais != 0) {
+                    } else if (getNumParamFormais() != 0) {
                         throw new SemanticError("Erro na quantidade parâmetros(4)", token.getPosition());
                     } else {
 //                        tipoVar = getTipoResultadoOperacao();
@@ -549,6 +549,26 @@ public class Semantico implements Constants, SemanticConstants {
                 return;
             case 182:
                 contextoExprStack.pop();
+                return;
+            case 183:
+//                if (contextoExprStack.peek() != CONT_EXPR_IMPRESSAO) {
+//                    pilhaMPP.push(MPP_REFERENCIA);
+//                    System.out.println("push " + pilhaMPP.peek());
+//                }
+                return;
+            case 184:
+//                if (!pilhaMPP.isEmpty()) {
+//                    pilhaMPP.pop();
+//                    pilhaMPP.push(MPP_VALOR);
+//                    System.out.println("pop+push " + pilhaMPP.peek());
+//                }
+                return;
+            case 185:
+//                if (!pilhaMPP.isEmpty() && TS.getSimbolo(posIdStack.peek()).ehMetodo()) {
+//                    pilhaMPP.pop();
+//                    pilhaMPP.push(MPP_VALOR);
+//                    System.out.println("pop+push " + pilhaMPP.peek());
+//                }
                 return;
             default:
                 throw new SemanticError("Erro nao identificado - acao semantica nao identificada -", token.getPosition());
@@ -660,18 +680,15 @@ public class Semantico implements Constants, SemanticConstants {
 
     private boolean isParamAtuaisValidos() {
         Simbolo metodo = TS.getSimbolo(posIdStack.peek());
-        int posPrimeiroParam = metodo.getPosParamFinal() - metodo.getNPF() + numParamAtuaisStack.peek();
-        int posUltimoParam = posPrimeiroParam + metodo.getNPF() - 1;
-        Simbolo param = TS.getSimbolo(posPrimeiroParam);
+        int posParam = metodo.getPosParamFinal() - metodo.getNPF() + numParamAtuaisStack.peek();
+        Simbolo param = TS.getSimbolo(posParam);
         if (metodo.getNPF() < numParamAtuaisStack.peek()) {
             return false;
         }
-        while (posPrimeiroParam <= posUltimoParam) {
-            if (TS.getSimbolo(posPrimeiroParam).getMpp() != pilhaMPP.pop()) {
-                return false;
-            }
-            posPrimeiroParam++;
-        }
+//        System.out.println("pop " + pilhaMPP.peek());
+//        if (param.getMpp() == SemanticConstants.MPP_REFERENCIA && pilhaMPP.pop() == MPP_VALOR) {
+//            return false;
+//        }
         return tipoExpr == param.getTipo();
     }
 

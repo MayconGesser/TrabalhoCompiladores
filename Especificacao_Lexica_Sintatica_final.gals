@@ -167,36 +167,36 @@ vetor		= id : "vetor"
                    |   "[" #135 <expressao> #136 "]" #181 ":=" <expressao> #134
                    |   "(" #137 #138 <lista_expr> ")" #139
                    |   î#140 ;
-<lista_expr>  ::=  <expressao> #141 <rep_lexpr> ;
+<lista_expr>  ::=  #183 <expressao> #141 <rep_lexpr> ;
 
-<rep_lexpr>  ::= "," <expressao> #141 <rep_lexpr> |  î;
+<rep_lexpr>  ::= "," #183 <expressao> #141 <rep_lexpr> |  î;
 
 <expressao>  ::= <expsimp> #142 <resto_expressao> ;
 
-<resto_expressao> ::= <oprel> <expsimp> #143 |  î;
+<resto_expressao> ::= #184 <oprel> <expsimp> #143 |  î;
 
 <oprel> ::= "=" #144 | "<" #145 | ">" #146 | ">=" #147 | "<=" #148 | "<>" #149 ;
 
 <expsimp> ::= <termo> #150 <rep_expsimp> ;
 
-<rep_expsimp> ::= <op_add> #151 <termo> #152 <rep_expsimp>  |  î;
+<rep_expsimp> ::= #184 <op_add> #151 <termo> #152 <rep_expsimp>  |  î;
                       
 <op_add> ::= "+" #153 | "-" #154 | ou #155 ;
 
 <termo> ::= <fator> #156 <rep_termo> ;
 
-<rep_termo> ::= <op_mult> #157 <fator> #158 <rep_termo> |  î;
+<rep_termo> ::= #184 <op_mult> #157 <fator> #158 <rep_termo> |  î;
 
 <op_mult> ::= "*" #159 | "/" #160 |  div #162 |  e #161 ;
 
-<fator> ::= nao #163 <fator> #164
-               | "-"  #165 <fator> #166
-               |  "(" #167 <expressao> ")" #168 
-	     |  id  #128 <rvar> #169   
-	     | <constante_explicita> #170 ;
+<fator> ::= #184 nao #163 <fator> #164
+               | #184 "-"  #165 <fator> #166
+               |  #184  "(" #167 <expressao> ")" #168 
+	     |  id  #128 #185 <rvar> #169   
+	     | #184 <constante_explicita> #170 ;
 
-<rvar> ::= "(" #171 <expressao> #141 <rep_lexpr> ")" #172  
-              |   "[" #135 <expressao> #173 "]"
+<rvar> ::= #184  "(" #183 #171 <expressao> #141 <rep_lexpr> ")" #172  
+              |   #184 "[" #135 <expressao> #173 "]"
               |   î #174 ;
 
 <constante> ::= id #175 |  <constante_explicita> ;
