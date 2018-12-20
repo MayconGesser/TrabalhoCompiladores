@@ -32,6 +32,7 @@ public class Semantico implements Constants, SemanticConstants {
     private Stack<Integer> contextoExprStack = new Stack<>();
     private Stack<Integer> numParamAtuaisStack = new Stack<>();
     private Stack<EstadoExpressao> estadoStack = new Stack<>();
+    private Stack<Integer> pilhaMPP = new Stack<>();
 
     private TabelaSimbolos TS = new TabelaSimbolos();
 
@@ -51,7 +52,7 @@ public class Semantico implements Constants, SemanticConstants {
                 return;
             case 104:
                 updateIds();
-                //System.out.println("AC 104");
+                // System.out.println("AC 104");
                 pop();
                 return;
             case 105:
@@ -120,14 +121,15 @@ public class Semantico implements Constants, SemanticConstants {
                             throw new SemanticError("Tipo inválido para leitura", token.getPosition());
                         } else {
                             posIdStack.push(findPosicaoId(token));
-                            //gera codigo para leitura; nao implementado pois nao eh o foco do trabalho 
+                            // gera codigo para leitura; nao implementado pois nao eh o foco do trabalho
                         }
                     }
                 }
                 return;
             case 114:
                 if (subCategoriaAtual == SUB_CAT_CADEIA || subCategoriaAtual == SUB_CAT_VETOR) {
-                    throw new SemanticError("Apenas id de tipo pré-definido pode ser declarado como constante", token.getPosition());
+                    throw new SemanticError("Apenas id de tipo pré-definido pode ser declarado como constante",
+                            token.getPosition());
                 } else {
                     categoriaAtual = CAT_CONSTANTE;
                 }
@@ -175,7 +177,7 @@ public class Semantico implements Constants, SemanticConstants {
                     throw new SemanticError("Parametros devem ser de tipo pré-definido", token.getPosition());
                 } else {
                     updatePF();
-                    //System.out.println("AC 123");
+                    // System.out.println("AC 123");
                     pop();
                 }
                 return;
@@ -208,14 +210,14 @@ public class Semantico implements Constants, SemanticConstants {
                 if (tipoExpr != TIPO_BOOLEANO && tipoExpr != TIPO_INTEIRO) {
                     throw new SemanticError("Tipo inválido da expressão", token.getPosition());
                 } else {
-                    //geracao de cod
+                    // geracao de cod
                 }
                 return;
             case 130:
                 contextoLID = CONT_LID_LEITURA;
                 return;
             case 131:
-                //System.out.println("contextoExprStack - PUSH - AC 131");
+                // System.out.println("contextoExprStack - PUSH - AC 131");
                 contextoExprStack.push(CONT_EXPR_IMPRESSAO);
                 return;
             case 132:
@@ -224,7 +226,7 @@ public class Semantico implements Constants, SemanticConstants {
                 } else if (tipoExpr != tipoMetAtual) {
                     throw new SemanticError("Tipo de retorno inválido", token.getPosition());
                 } else {
-                    //ger cod
+                    // ger cod
                 }
                 return;
             case 133:
@@ -234,7 +236,7 @@ public class Semantico implements Constants, SemanticConstants {
                         throw new SemanticError("id deveria ser indexado", token.getPosition());
                     } else {
                         tipoLadoEsq = getTipoId();
-                        //System.out.println("AC 133");
+                        // System.out.println("AC 133");
                         pop();
                     }
                 } else {
@@ -242,12 +244,13 @@ public class Semantico implements Constants, SemanticConstants {
                 }
                 return;
             case 134:
-                //trata edge case de inteiro recebendo real
+                // trata edge case de inteiro recebendo real
                 if (!isCompativel(tipoExpr, tipoLadoEsq) || (tipoLadoEsq == TIPO_INTEIRO && tipoExpr == TIPO_REAL)) {
-                    //System.out.println(" tipoExpr - tipoLadoEsq " + tipoExpr + " " + tipoLadoEsq);
+                    // System.out.println(" tipoExpr - tipoLadoEsq " + tipoExpr + " " +
+                    // tipoLadoEsq);
                     throw new SemanticError("tipos incompatíveis", token.getPosition());
                 } else {
-                    //ger cod
+                    // ger cod
                 }
                 return;
             case 135:
@@ -279,17 +282,17 @@ public class Semantico implements Constants, SemanticConstants {
                 return;
             case 138:
                 numParamAtuaisStack.push(0);
-                //System.out.println("contextoExprStack - PUSH - 138");
+                // System.out.println("contextoExprStack - PUSH - 138");
                 contextoExprStack.push(CONT_EXPR_PARATUAL);
                 return;
             case 139:
-                //System.out.println(" AC 139 - antes do pop em NPA");
+                // System.out.println(" AC 139 - antes do pop em NPA");
                 if (TS.getSimbolo(posIdStack.peek()).getNPF() != numParamAtuaisStack.pop()) {
                     throw new SemanticError("erro na quantidade de parâmetros (1)", token.getPosition());
                 } else {
-                    //System.out.println("AC 139");
+                    // System.out.println("AC 139");
                     pop();
-                    //ger cod
+                    // ger cod
                 }
                 return;
             case 140:
@@ -300,24 +303,26 @@ public class Semantico implements Constants, SemanticConstants {
                 } else if (getNumParamFormais() != 0) {
                     throw new SemanticError("erro na quantidade de parametros (2)", token.getPosition());
                 } else {
-                    //System.out.println("AC 140");
+                    // System.out.println("AC 140");
                     pop();
-                    //ger cod
+                    // ger cod
                 }
                 return;
             case 141:
                 if (contextoExprStack.peek() == CONT_EXPR_PARATUAL) {
-                    //System.out.println(" AC 141 - antes do pop em NPA");
+                    // System.out.println(" AC 141 - antes do pop em NPA");
                     numParamAtuaisStack.push(numParamAtuaisStack.pop() + 1);
-                    //System.out.println("AC 141");
+                    // System.out.println("AC 141");
                     if (!isParamAtuaisValidos()) {
-                        throw new SemanticError("tipos de parametros atuais nao coincidem com tipos de parametros esperados pelo metodo", token.getPosition());
+                        throw new SemanticError(
+                                "tipos de parametros atuais nao coincidem com tipos de parametros esperados pelo metodo",
+                                token.getPosition());
                     }
                 } else if (contextoExprStack.peek() == CONT_EXPR_IMPRESSAO) {
                     if (tipoExpr == TIPO_BOOLEANO) {
                         throw new SemanticError("tipo invalido para impressão", token.getPosition());
                     } else {
-                        //ger cod
+                        // ger cod
                     }
                 }
                 return;
@@ -362,7 +367,7 @@ public class Semantico implements Constants, SemanticConstants {
                     throw new SemanticError("Operando incompatíveis", token.getPosition());
                 } else {
                     tipoExprSimples = getTipoResultadoOperacao(tipoTermo, tipoExprSimples);
-                    //ger cod
+                    // ger cod
                 }
                 return;
             case 153:
@@ -387,7 +392,7 @@ public class Semantico implements Constants, SemanticConstants {
                     throw new SemanticError("Operandos incompatíveis", token.getPosition());
                 } else {
                     tipoTermo = getTipoResultadoOperacao(tipoFator, tipoTermo);
-                    //ger cod
+                    // ger cod
                 }
                 return;
             case 159:
@@ -442,7 +447,7 @@ public class Semantico implements Constants, SemanticConstants {
             case 169:
                 tipoFator = tipoVar;
                 if (!posIdStack.isEmpty() && !TS.getSimbolo(posIdStack.peek()).ehMetodo()) {
-                    //System.out.println("AC 169");
+                    // System.out.println("AC 169");
                     pop();
                 }
                 return;
@@ -456,20 +461,20 @@ public class Semantico implements Constants, SemanticConstants {
                     throw new SemanticError("esperava-se método com tipo", token.getPosition());
                 } else {
                     numParamAtuaisStack.push(0);
-                    //System.out.println("contextoExprStack - PUSH - AC 171");
+                    // System.out.println("contextoExprStack - PUSH - AC 171");
                     contextoExprStack.push(CONT_EXPR_PARATUAL);
                     numParamFormais = getNumParamFormais();
                 }
                 return;
             case 172:
-                //System.out.println(" AC 172 - antes do pop em NPA");
+                // System.out.println(" AC 172 - antes do pop em NPA");
                 if (numParamAtuaisStack.pop() == numParamFormais) {
                     tipoVar = getTipoId();
-                    //System.out.println("AC 172");
+                    // System.out.println("AC 172");
                     pop();
-                    ////System.out.println("contextoExprStack - POP - AC 172");
+                    //// System.out.println("contextoExprStack - POP - AC 172");
                     contextoExprStack.pop();
-                    //ger cod
+                    // ger cod
                 } else {
                     throw new SemanticError("Erro na quantidade de parametros(3)", token.getPosition());
                 }
@@ -500,9 +505,9 @@ public class Semantico implements Constants, SemanticConstants {
                     } else {
 //                        tipoVar = getTipoResultadoOperacao();
                         tipoVar = tipo;
-                        //System.out.println("AC 174");
+                        // System.out.println("AC 174");
                         pop();
-                        //ger cod
+                        // ger cod
                     }
                 } else {
                     throw new SemanticError("Esperava-se var, id-método ou constante", token.getPosition());
@@ -539,7 +544,7 @@ public class Semantico implements Constants, SemanticConstants {
 //                valConst = getValor(token);
                 return;
             case 181:
-                //System.out.println("AC 181");
+                // System.out.println("AC 181");
                 pop();
                 return;
             case 182:
@@ -575,8 +580,10 @@ public class Semantico implements Constants, SemanticConstants {
 
     private int pop() {
         int pop = posIdStack.pop();
-        //System.out.println(" POPOU => " + pop + " " + TS.getSimbolo(pop).getLexeme());
-        //System.out.println("PILHA ATUAL => " + Arrays.toString(posIdStack.toArray()));
+        // System.out.println(" POPOU => " + pop + " " +
+        // TS.getSimbolo(pop).getLexeme());
+        // System.out.println("PILHA ATUAL => " +
+        // Arrays.toString(posIdStack.toArray()));
         return pop;
     }
 
@@ -597,7 +604,7 @@ public class Semantico implements Constants, SemanticConstants {
     }
 
     private int geValorId(Token token) {
-        //Pra geracao de codigo tem que arrumar
+        // Pra geracao de codigo tem que arrumar
         return -1;
     }
 
@@ -651,12 +658,19 @@ public class Semantico implements Constants, SemanticConstants {
         }
     }
 
-
     private boolean isParamAtuaisValidos() {
         Simbolo metodo = TS.getSimbolo(posIdStack.peek());
-        Simbolo param = TS.getSimbolo(metodo.getPosParamFinal() - metodo.getNPF() + numParamAtuaisStack.peek());
+        int posPrimeiroParam = metodo.getPosParamFinal() - metodo.getNPF() + numParamAtuaisStack.peek();
+        int posUltimoParam = posPrimeiroParam + metodo.getNPF() - 1;
+        Simbolo param = TS.getSimbolo(posPrimeiroParam);
         if (metodo.getNPF() < numParamAtuaisStack.peek()) {
             return false;
+        }
+        while (posPrimeiroParam <= posUltimoParam) {
+            if (TS.getSimbolo(posPrimeiroParam).getMpp() != pilhaMPP.pop()) {
+                return false;
+            }
+            posPrimeiroParam++;
         }
         return tipoExpr == param.getTipo();
     }
@@ -701,7 +715,7 @@ public class Semantico implements Constants, SemanticConstants {
         int primeiro = primeiroIdLista;
         int ultimo = ultimoIdLista;
         while (primeiro <= ultimo) {
-            TS.updateParam(primeiro, tipoAtual);
+            TS.updateParam(primeiro, tipoAtual, mpp);
             primeiro++;
         }
     }

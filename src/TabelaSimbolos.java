@@ -131,9 +131,10 @@ public class TabelaSimbolos implements SemanticConstants {
         return tabela.stream().filter(simbolo -> simbolo.getNivel() == nivel).collect(Collectors.toList());
     }
 
-    public void updateParam(int id, int tipoAtual) {
+    public void updateParam(int id, int tipoAtual, int mpp) {
         Simbolo s = tabela.get(id);
         s.setTipo(tipoAtual);
+        s.setMpp(mpp);
     }
 
     public int getCategoriaSimbolo(int posId) {
